@@ -5,6 +5,7 @@
 /.**
 
 
-### Add white
+### Add whitelist
 
 !.gitignore
+!.zshrc
