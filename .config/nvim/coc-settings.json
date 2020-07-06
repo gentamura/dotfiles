@@ -1,0 +1,6 @@
+{
+  "tsserver.enableJavascript": true,
+  "eslint.filetypes": ["javascript", "typescript", "typescriptreact", "javascriptreact", "typescript.tsx", "javascript.jsx"],
+  "suggest.autoTrigger": "none",
+  "coc.preferences.extensionUpdateCheck": "never"
+}

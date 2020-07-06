@@ -1,0 +1,138 @@
+# パッケージ管理 https://github.com/Shougo/dein.vim
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+# Git wrapper https://github.com/tpope/vim-fugitive
+[[plugins]]
+repo = 'tpope/vim-fugitive'
+
+# コメントしたい部分を選択して、 ctrl + = = でコメントアウト https://github.com/tomtom/tcomment_vim
+[[plugins]]
+repo = 'tomtom/tcomment_vim'
+
+# color schema / airline theme https://github.com/jacoborus/tender.vim
+[[plugins]]
+repo = 'jacoborus/tender.vim'
+
+# emmet for vim https://github.com/mattn/emmet-vim
+[[plugins]]
+repo = 'mattn/emmet-vim'
+
+# インデント表示 https://github.com/nathanaelkane/vim-indent-guides
+[[plugins]]
+repo = 'nathanaelkane/vim-indent-guides'
+hook_add = '''
+  let g:indent_guides_enable_on_vim_startup = 1 "起動時に有効
+'''
+
+# JSON Lintなど https://github.com/elzr/vim-json
+[[plugins]]
+repo = 'elzr/vim-json'
+hook_add = '''
+  let g:vim_json_syntax_conceal = 0 "ダブルコーテーションなどは表示する
+'''
+
+# ステータスバーをいい感じに https://github.com/vim-airline/vim-airline
+[[plugins]]
+repo = 'vim-airline/vim-airline'
+
+# ステータスバーの色をいい感じに https://github.com/vim-airline/vim-airline-themes
+[[plugins]]
+repo = 'vim-airline/vim-airline-themes'
+hook_add = '''
+  let g:airline_theme = 'tender' "テーマを設定する
+'''
+
+# おしゃれにアイコン表示 https://github.com/ryanoasis/vim-devicons
+[[plugins]]
+repo = 'ryanoasis/vim-devicons'
+hook_source = '''
+  if exists('g:loaded_webdevicons')
+    call webdevicons#refresh()
+  endif
+  let g:airline_powerline_fonts = 1
+  let g:webdevicons_enable = 1
+  let g:webdevicons_enable_nerdtree = 1
+  let g:webdevicons_enable_airline_tabline = 1
+  let g:webdevicons_enable_airline_statusline = 1
+  let g:webdevicons_enable_denite = 1
+'''
+
+# Prettier プラグイン https://github.com/prettier/vim-prettier
+[[plugins]]
+repo = 'prettier/vim-prettier'
+build = 'yarn install'
+on_ft = ['javascript', 'typescript', 'css', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html', 'php']
+hook_add = '''
+  let g:prettier#config#print_width = 120
+  let g:prettier#config#single_quote = 'true'
+  let g:prettier#config#semi = 'true'
+  " let g:prettier#config#trailing_comma = 'all'
+'''
+
+# JSX関連 https://github.com/neoclide/vim-jsx-improve
+[[plugins]]
+repo = 'chemzqm/vim-jsx-improve'
+
+# Styled Components https://github.com/styled-components/vim-styled-components
+[[plugins]]
+repo = 'styled-components/vim-styled-components'
+
+# CSS3 syntax https://github.com/hail2u/vim-css3-syntax
+[[plugins]]
+repo = 'hail2u/vim-css3-syntax'
+
+# toml syntax master https://github.com/cespare/vim-toml
+[[plugins]]
+repo = 'cespare/vim-toml'
+
+# Golang https://github.com/fatih/vim-go
+[[plugins]]
+repo = 'fatih/vim-go'
+hook_add = '''
+  let g:go_fmt_command = "goimports"
+  let g:go_metalinter_autosave = 1
+  let g:go_metalinter_autosave_enabled = ['vet']
+  let g:go_def_mapping_enabled = 0
+  let g:go_doc_keywordprg_enabled = 0
+'''
+
+# Most Recently Used plugin https://github.com/Shougo/neomru.vim
+[[plugins]]
+repo = 'Shougo/neomru.vim'
+
+[[plugins]]
+repo = 'nixprime/cpsm'
+
+[[plugins]]
+repo = 'Shougo/deoplete-lsp'
+
+[[plugins]]
+repo = 'vim-ruby/vim-ruby'
+
+[[plugins]]
+repo = 'tpope/vim-rails'
+
+[[plugins]]
+repo = 'tpope/vim-surround'
+
+[[plugins]]
+repo = 'tpope/vim-rbenv'
+
+[[plugins]]
+repo = 'tpope/vim-bundler'
+
+[[plugins]]
+repo = 'thoughtbot/vim-rspec'
+hook_add = '''
+  map <Leader>t :call RunCurrentSpecFile()<CR>
+  map <Leader>s :call RunNearestSpec()<CR>
+  map <Leader>l :call RunLastSpec()<CR>
+  map <Leader>a :call RunAllSpecs()<CR>
+
+  let g:rspec_command = "!bin/rspec {spec}"
+'''
+
+# 良い感じの閉じカッコ補完 https://github.com/cohama/lexima.vim
+[[plugins]]
+repo = 'cohama/lexima.vim'
