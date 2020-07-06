@@ -1,17 +1,20 @@
+fpath=($(brew --prefix)/share/zsh/site-functions $fpath) # Git autocomplete
+fpath=(/usr/local/etc/bash_completion.d/deno.bash $fpath) # deno
+autoload -U compinit
+compinit -u
+
+export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 export PATH="/Applications/flutter/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.anyenv/bin:$PATH"
+export PATH="$HOME/.deno/bin:$PATH"
 
 export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
-export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
-export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
+export OPENSSL_LIBS="-L/usr/local/opt/openssl@1.1/lib"
+export OPENSSL_CFLAGS="-I/usr/local/opt/openssl@1.1/include"
 export PKG_CONFIG_PATH="/usr/local/opt/openssl@1.1/lib/pkgconfig"
 
 export GOPATH="$(go env GOPATH)"
-
-if [ -e /usr/local/share/zsh-completions ]; then
-  fpath=(/usr/local/share/zsh-completions $fpath)
-fi
 
 eval "$(anyenv init -)"
 eval "$(starship init zsh)"
