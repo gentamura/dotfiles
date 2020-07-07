@@ -11,5 +11,6 @@
 !.zshrc
 !.tmux.conf
 !.config/
+!.config/starship.toml
 !.config/nvim/
 !.config/nvim/**
