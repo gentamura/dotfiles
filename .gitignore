@@ -1,11 +1,9 @@
-# whitelist methods
-
 ### all ignore ###
+
 /*
 /.**
 
-
-### Add whitelist
+### no ignore
 
 !.gitignore
 !.zshrc
@@ -14,3 +12,4 @@
 !.config/starship.toml
 !.config/nvim/
 !.config/nvim/**
+.config/nvim/.netrwhist
