@@ -18,6 +18,8 @@ export GOPATH="$(go env GOPATH)"
 
 eval "$(anyenv init -)"
 eval "$(starship init zsh)"
+
+export EDITOR=vim
 eval "$(direnv hook zsh)"
 
 # alias
@@ -31,5 +33,7 @@ alias ni='npm install'
 alias sz='source ~/.zshrc'
 # exa -> ls
 alias ls='exa'
+# ls -la
+alias ll='ls -la'
 # bat -> cat
 alias cat='bat'
