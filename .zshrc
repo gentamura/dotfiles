@@ -1,3 +1,5 @@
+export EDITOR=vim
+
 fpath=($(brew --prefix)/share/zsh/site-functions $fpath) # Git autocomplete
 fpath=(/usr/local/etc/bash_completion.d/deno.bash $fpath) # deno
 autoload -U compinit
@@ -14,13 +16,11 @@ export OPENSSL_LIBS="-L/usr/local/opt/openssl@1.1/lib"
 export OPENSSL_CFLAGS="-I/usr/local/opt/openssl@1.1/include"
 export PKG_CONFIG_PATH="/usr/local/opt/openssl@1.1/lib/pkgconfig"
 
-export GOPATH="$(go env GOPATH)"
-
 eval "$(anyenv init -)"
 eval "$(starship init zsh)"
-
-export EDITOR=vim
 eval "$(direnv hook zsh)"
+
+export GOPATH="$(go env GOPATH)"
 
 # alias
 
