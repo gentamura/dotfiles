@@ -130,9 +130,21 @@ hook_add = '''
   map <Leader>l :call RunLastSpec()<CR>
   map <Leader>a :call RunAllSpecs()<CR>
 
-  let g:rspec_command = "!bin/rspec {spec}"
+  let g:rspec_command = "!bundle exec rspec {spec}"
 '''
 
 # 良い感じの閉じカッコ補完 https://github.com/cohama/lexima.vim
 [[plugins]]
 repo = 'cohama/lexima.vim'
+
+# 非同期Linter https://github.com/dense-analysis/ale
+[[plugins]]
+repo = 'dense-analysis/ale'
+hook_add = '''
+  let g:airline#extensions#ale#enabled = 1
+  let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
+  let g:ale_echo_msg_format = '[%linter%] %s'
+  let g:ale_linters = {
+  \  'javascript': ['eslint', 'flow', 'flow-language-server', 'jscs', 'jshint', 'standard', 'xo']
+  \}
+'''

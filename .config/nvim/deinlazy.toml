@@ -95,8 +95,15 @@ hook_source = '''
 
 [[plugins]]
 repo = 'scrooloose/nerdtree'
+# hook_add = '''
+#   nnoremap <silent><C-s> :NERDTreeToggle<CR>
+# '''
+
+[[plugins]]
+repo = 'jistr/vim-nerdtree-tabs'
 hook_add = '''
-  nnoremap <silent><C-s> :NERDTreeToggle<CR>
+  let g:nerdtree_tabs_open_on_new_tab = 0 " タブを開いたときにNerdTreeのサイドバーは閉じたままにする
+  nnoremap <silent><C-s> :NERDTreeTabsToggle<CR>
 '''
 
 [[plugins]]

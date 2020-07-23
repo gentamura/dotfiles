@@ -37,3 +37,7 @@ alias ls='exa'
 alias ll='ls -la'
 # bat -> cat
 alias cat='bat'
+
+# key binding for tmux
+bindkey "^P" up-line-or-history
+bindkey "^N" down-line-or-history
