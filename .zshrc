@@ -39,5 +39,6 @@ alias ll='ls -la'
 alias cat='bat'
 
 # key binding for tmux
+# http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html#History-Control
 bindkey "^P" up-line-or-history
 bindkey "^N" down-line-or-history
