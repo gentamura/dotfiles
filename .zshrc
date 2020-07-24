@@ -38,7 +38,11 @@ alias ll='ls -la'
 # bat -> cat
 alias cat='bat'
 
-# key binding for tmux
+# For tmux
+# env variables
+export TERM=screen-256color
+
+# key binding
 # http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html#History-Control
 bindkey "^P" up-line-or-history
 bindkey "^N" down-line-or-history
