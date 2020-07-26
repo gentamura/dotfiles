@@ -133,6 +133,10 @@ hook_add = '''
   let g:rspec_command = "!bundle exec rspec {spec}"
 '''
 
+# slimのシンタックスハイライト https://github.com/slim-template/vim-slim
+[[plugins]]
+repo = 'slim-template/vim-slim'
+
 # 良い感じの閉じカッコ補完 https://github.com/cohama/lexima.vim
 [[plugins]]
 repo = 'cohama/lexima.vim'
