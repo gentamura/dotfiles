@@ -15,3 +15,5 @@
 !.config/nvim/
 !.config/nvim/**
 .config/nvim/.netrwhist
+!/.bin/
+!/.bin/**
