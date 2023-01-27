@@ -14,8 +14,6 @@
 !.config/
 !.config/starship.toml
 !.config/nvim/
-!.config/nvim/**
-.config/nvim/plugin
 .config/nvim/.netrwhist
+.config/nvim/plugin/**
 !/.bin/
-!/.bin/**
