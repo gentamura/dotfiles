@@ -1,4 +1,4 @@
--- This file can be loaded by calling `lua require('plugins')` from your init.vim
+--# This file can be loaded by calling `lua require('plugins')` from your init.vim
 
 -- Only required if you have packer configured as `opt`
 vim.cmd [[packadd packer.nvim]]
@@ -12,6 +12,8 @@ return require('packer').startup(function(use)
     -- or                            , branch = '0.1.x',
     requires = { {'nvim-lua/plenary.nvim'} }
   }
+
+  use { "nvim-telescope/telescope-file-browser.nvim" }
 
   use({
     'rose-pine/neovim',
@@ -27,6 +29,28 @@ return require('packer').startup(function(use)
   use('theprimeagen/harpoon')
   use('mbbill/undotree')
   use('tpope/vim-fugitive')
+  use('lewis6991/gitsigns.nvim')
+  use('windwp/nvim-ts-autotag')
+  use('windwp/nvim-autopairs')
+  use('nvim-tree/nvim-web-devicons')
+
+  -- Prettier
+  use('MunifTanjim/prettier.nvim')
+  use('jose-elias-alvarez/null-ls.nvim')
+
+  -- Status bar
+  use {
+    'nvim-lualine/lualine.nvim',
+    requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+  }
+
+  use({
+    "glepnir/lspsaga.nvim",
+    branch = "main",
+    config = function()
+      require('lspsaga').setup({})
+    end,
+  })
 
   use {
     'VonHeikemen/lsp-zero.nvim',
