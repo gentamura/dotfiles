@@ -26,16 +26,12 @@ export GOPATH="$(go env GOPATH)"
 # brew for pyenv
 # https://github.com/pyenv/pyenv/issues/106#issuecomment-94921352
 alias brew="env PATH=${PATH//$(pyenv root)\/shims:/} brew"
-# npm
-alias ni='npm install'
-# zsh
+
 alias sz='source ~/.zshrc'
-# exa -> ls
 alias ls='exa'
-# ls -la
 alias ll='ls -la'
-# bat -> cat
 alias cat='bat'
+alias pn='pnpm'
 
 # For tmux
 # env variables
