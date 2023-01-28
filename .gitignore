@@ -5,19 +5,20 @@
 
 ### no ignore
 
-!.gitignore
-!README.md
-!.zshrc
-!.tmux.conf
-!.tmuxinator/
-.tmuxinator/**
-!.config/
-!.config/starship.toml
-!.config/nvim/
-.config/nvim/anyenv/**
-!.config/nvim/after/plugin/
-!.config/nvim/lua
-!.config/nvim/lua/gentamura
-.config/nvim/.netrwhist
-.config/nvim/plugin/**
+!/.zshrc
+!/.tmux.conf
 !/.bin/
+!/.bin/install.sh
+!/.config/
+!/.config/starship.toml
+!/.config/nvim/
+!/.config/nvim/init.lua
+!/.config/nvim/after/
+!/.config/nvim/after/plugin/
+!/.config/nvim/after/plugin/**
+!/.config/nvim/lua/
+!/.config/nvim/lua/gentamura/
+!/.config/nvim/lua/gentamura/**
+
+!/README.md
+!/.gitignore
