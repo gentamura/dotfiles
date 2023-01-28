@@ -14,6 +14,10 @@
 !.config/
 !.config/starship.toml
 !.config/nvim/
+.config/nvim/anyenv/**
+!.config/nvim/after/plugin/
+!.config/nvim/lua
+!.config/nvim/lua/gentamura
 .config/nvim/.netrwhist
 .config/nvim/plugin/**
 !/.bin/
