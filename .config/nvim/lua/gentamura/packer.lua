@@ -38,6 +38,9 @@ return require('packer').startup(function(use)
   use('MunifTanjim/prettier.nvim')
   use('jose-elias-alvarez/null-ls.nvim')
 
+  -- Lua formatter
+  use({"ckipp01/stylua-nvim", run = "cargo install stylua"})
+
   -- Status bar
   use {
     'nvim-lualine/lualine.nvim',
