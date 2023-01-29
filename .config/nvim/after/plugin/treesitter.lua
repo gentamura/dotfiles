@@ -1,5 +1,5 @@
 -- https://zenn.dev/link/comments/684e532b039854
-require'nvim-treesitter.configs'.setup {
+require("nvim-treesitter.configs").setup({
   -- A list of parser names, or "all" (the four listed parsers should always be installed)
   ensure_installed = { "javascript", "typescript", "c", "lua", "rust", "vim", "help" },
 
@@ -25,4 +25,4 @@ require'nvim-treesitter.configs'.setup {
   auto_tag = {
     enable = true,
   },
-}
+})
