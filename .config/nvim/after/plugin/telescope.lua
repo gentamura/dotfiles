@@ -10,7 +10,7 @@ vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
 -- IMPORTANT!: this is only a showcase of how you can set default options!
 require("telescope").setup({
   defaults = {
-    file_ignore_patterns = { ".git/" },
+    file_ignore_patterns = { ".git/", ".yarn/" },
   },
   pickers = {
     find_files = {
