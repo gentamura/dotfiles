@@ -8,4 +8,7 @@
 
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
-vim.keymap.set("c", "cwd", "echo expand('%')<CR>")
+
+-- user commands
+vim.api.nvim_create_user_command("Cwd", "echo expand('%')", {})
+vim.api.nvim_create_user_command("RootPathCopy", "let @* = expand('%:p')", {})
