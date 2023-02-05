@@ -6,6 +6,13 @@ local event = "BufWritePre" -- or "BufWritePost"
 local async = event == "BufWritePost"
 
 null_ls.setup({
+  source = {
+    null_ls.builtins.diagnostics.eslint.with({
+      prefer_local = "node_modules/.bin",
+    }),
+    null_ls.builtins.formatting.prettier,
+  },
+  debug = false,
   on_attach = function(client, bufnr)
     if client.supports_method("textDocument/formatting") then
       vim.keymap.set("n", "<Leader>f", function()
