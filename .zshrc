@@ -53,3 +53,8 @@ bindkey '^R' peco-history-selection
 # tabtab source for packages
 # uninstall by removing these lines
 [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
+
+# pnpm
+export PNPM_HOME="/Users/gentamura/Library/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+# pnpm end
