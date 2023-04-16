@@ -3,7 +3,6 @@ vim.opt.encoding = "UTF-8"
 vim.opt.helplang = "en"
 vim.opt.ruler = true
 vim.opt.number = true
-vim.opt.relativenumber = true
 vim.opt.history = 2000
 
 vim.opt.swapfile = false
@@ -24,6 +23,7 @@ vim.opt.smarttab = true
 vim.opt.autoindent = true
 vim.opt.smartindent = true
 vim.opt.wrap = false
+vim.opt.mouse = "nv"
 
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
