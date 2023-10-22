@@ -23,6 +23,7 @@ while [ $# -gt 0 ];do
       "$SCRIPT_DIR/install_link.sh"
       # git config --global include.path "~/.gitconfig_shared"
       command echo -e "\e[1;36m Install completed!!!! \e[m"
+      ;;
     brew)
       "$SCRIPT_DIR/install_brew.sh"
       ;;
