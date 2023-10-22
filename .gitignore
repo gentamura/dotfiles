@@ -10,6 +10,9 @@
 !/.stylua.toml
 !/.bin/
 !/.bin/install.sh
+!/.bin/install_init.sh
+!/.bin/install_brew.sh
+!/.bin/install_link.sh
 !/.config/
 !/.config/starship.toml
 !/.config/nvim/
@@ -21,5 +24,7 @@
 !/.config/nvim/lua/gentamura/
 !/.config/nvim/lua/gentamura/**
 
+!/Brewfile
 !/README.md
+
 !/.gitignore

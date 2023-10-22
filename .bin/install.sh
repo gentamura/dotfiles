@@ -1,35 +1,12 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 set -ue
 
 helpmsg() {
-  command echo "Usage: $0 [--help | -h]" 0>&2
+  command echo "Usage: $0 [--help | -h | init | brew | link | debug]" 0>&2
   command echo ""
 }
 
-link_to_homedir() {
-  command echo "backup old dotfiles..."
-  if [ ! -d "$HOME/.dotbackup" ];then
-    command echo "$HOME/.dotbackup not found. Auto Make it"
-    command mkdir "$HOME/.dotbackup"
-  fi
-
-  local script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
-  local dotdir=$(dirname ${script_dir})
-  if [[ "$HOME" != "$dotdir" ]];then
-    for f in $dotdir/.??*; do
-      [[ `basename $f` == ".git" ]] && continue
-      if [[ -L "$HOME/`basename $f`" ]];then
-        command rm -f "$HOME/`basename $f`"
-      fi
-      if [[ -e "$HOME/`basename $f`" ]];then
-        command mv "$HOME/`basename $f`" "$HOME/.dotbackup"
-      fi
-      command ln -snf $f $HOME
-    done
-  else
-    command echo "same install src dest"
-  fi
-}
+SCRIPT_DIR="$(cd "$(dirname $0)" && pwd -P)"
 
 while [ $# -gt 0 ];do
   case ${1} in
@@ -40,12 +17,26 @@ while [ $# -gt 0 ];do
       helpmsg
       exit 1
       ;;
+    init)
+      "$SCRIPT_DIR/install_init.sh"
+      "$SCRIPT_DIR/install_brew.sh"
+      "$SCRIPT_DIR/install_link.sh"
+      # git config --global include.path "~/.gitconfig_shared"
+      command echo -e "\e[1;36m Install completed!!!! \e[m"
+    brew)
+      "$SCRIPT_DIR/install_brew.sh"
+      ;;
+    link)
+      "$SCRIPT_DIR/install_link.sh"
+      ;;
+    debug)
+      ;;
     *)
+      command echo "Invalid option: ${1}" 1>&2
+      helpmsg
+      exit 1
       ;;
   esac
   shift
 done
 
-link_to_homedir
-git config --global include.path "~/.gitconfig_shared"
-command echo -e "\e[1;36m Install completed!!!! \e[m"
