@@ -8,11 +8,11 @@ autoload -U compinit
 compinit -u
 
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
-export PATH="/Applications/flutter/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.anyenv/bin:$PATH"
 export PATH="$HOME/.deno/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
+export PATH="$HOME/development/flutter/bin:$PATH"
 
 export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
 
@@ -49,6 +49,8 @@ bindkey '^R' peco-history-selection
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+setopt INC_APPEND_HISTORY # add history on real-time
+setopt SHARE_HISTORY # share history between sessions
 
 # tabtab source for packages
 # uninstall by removing these lines
