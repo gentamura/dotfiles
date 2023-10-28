@@ -36,6 +36,10 @@ vim.opt.updatetime = 50
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
+--[[ Netrw ]]
+vim.g.netrw_keepdir = 0
+vim.g.netrw_localmovecmd = "mv"
+
 --[[ Package manager ]]
 return require("packer").startup(function()
   -- Package manager
