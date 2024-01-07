@@ -37,7 +37,6 @@ vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
 --[[ Netrw ]]
-vim.g.netrw_keepdir = 0
 vim.g.netrw_localmovecmd = "mv"
 
 --[[ Package manager ]]
@@ -418,7 +417,7 @@ return require("packer").startup(function()
   -- Fuzzy finder
   use({
     "nvim-telescope/telescope.nvim",
-    tag = "0.1.1",
+    tag = "0.1.4",
     requires = { { "nvim-lua/plenary.nvim" } },
     config = function()
       local builtin = require("telescope.builtin")
@@ -442,6 +441,7 @@ return require("packer").startup(function()
 
   use({
     "nvimdev/lspsaga.nvim",
+    commit = "a958783bc9d86217a4200845cd950314857636f3",
     after = "nvim-lspconfig",
     config = function()
       require("lspsaga").setup({})
