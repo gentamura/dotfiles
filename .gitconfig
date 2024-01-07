@@ -1,0 +1,47 @@
+[user]
+  name = Gen Tamura
+  email = gen.tamura84@gmail.com
+
+[core]
+  excludesfile = ~/.gitignore_global
+  pager = delta
+
+[include]
+  path = ~/.gitconfig_shared
+
+[interactive]
+  diffFilter = delta --color-only
+
+[init]
+  defaultBranch = main
+  templatedir = ~/.git-templates/git-secrets
+
+[pull]
+  rebase = false
+
+[push]
+  default = current
+
+[merge]
+  conflictstyle = diff3
+
+[diff]
+  colorMoved = default
+
+[hub] # https://github.com/github/hub
+  protocol = https
+
+[delta] # https://github.com/dandavison/delta
+  navigate = true    # use n and N to move between diff sections
+  light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+  side-by-side = true
+  line-numbers = true
+
+[secrets]
+  providers = git secrets --aws-provider
+  patterns = (A3T[A-Z0-9]|AKIA|AGPA|AIDA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{16}
+  patterns = (\"|')?(AWS|aws|Aws)?_?(SECRET|secret|Secret)?_?(ACCESS|access|Access)?_?(KEY|key|Key)(\"|')?\\s*(:|=>|=)\\s*(\"|')?[A-Za-z0-9/\\+=]{40}(\"|')?
+  patterns = (\"|')?(AWS|aws|Aws)?_?(ACCOUNT|account|Account)_?(ID|id|Id)?(\"|')?\\s*(:|=>|=)\\s*(\"|')?[0-9]{4}\\-?[0-9]{4}\\-?[0-9]{4}(\"|')?
+  allowed = AKIAIOSFODNN7EXAMPLE
+  allowed = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+

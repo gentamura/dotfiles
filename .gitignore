@@ -23,6 +23,8 @@
 !/.config/nvim/lua/
 !/.config/nvim/lua/gentamura/
 !/.config/nvim/lua/gentamura/**
+!/.gitconfig
+!/.gitignore_global
 
 !/Brewfile
 !/README.md
