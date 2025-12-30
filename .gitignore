@@ -25,6 +25,8 @@
 !/.config/nvim/lua/
 !/.config/nvim/lua/gentamura/
 !/.config/nvim/lua/gentamura/**
+!/.config/mise/
+!/.config/mise/config.toml
 !/.gitconfig
 !/.gitignore_global
 

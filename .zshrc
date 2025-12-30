@@ -9,24 +9,19 @@ compinit -u
 
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$HOME/.anyenv/bin:$PATH"
 export PATH="$HOME/.deno/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 export PATH="$HOME/development/flutter/bin:$PATH"
 
 export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
 
-eval "$(anyenv init -)"
 eval "$(starship init zsh)"
+eval "$(mise activate zsh)"
 
 export GOPATH="$(go env GOPATH)"
 
 # alias
 #
-# brew for pyenv
-# https://github.com/pyenv/pyenv/issues/106#issuecomment-94921352
-alias brew="env PATH=${PATH//$(pyenv root)\/shims:/} brew"
-
 alias sz='source ~/.zshrc'
 alias ls='exa'
 alias ll='ls -la'
