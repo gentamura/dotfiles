@@ -10,6 +10,8 @@
 !/.zshenv
 !/.tmux.conf
 !/.stylua.toml
+!/.zshrc.d/
+!/.zshrc.d/**
 !/.bin/
 !/.bin/install.sh
 !/.bin/install_init.sh

@@ -1,0 +1,2 @@
+export EDITOR=vim
+export TERM=screen-256color
