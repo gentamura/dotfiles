@@ -6,6 +6,8 @@
 ### no ignore
 
 !/.zshrc
+!/.zprofile
+!/.zshenv
 !/.tmux.conf
 !/.stylua.toml
 !/.bin/
