@@ -1,13 +1,9 @@
-. "$HOME/.cargo/env"
-
 path=(
   "$HOME/.local/share/mise/shims"
   "$HOME/.cargo/bin"
   "$HOME/.deno/bin"
   "$HOME/go/bin"
   "$HOME/development/flutter/bin"
+  "$HOME/Library/pnpm"
   $path
 )
-
-export PNPM_HOME="$HOME/Library/pnpm"
-path=("$PNPM_HOME" $path)
