@@ -35,5 +35,7 @@
 
 !/Brewfile
 !/README.md
+!/docs/
+!/docs/NEOVIM.md
 
 !/.gitignore
