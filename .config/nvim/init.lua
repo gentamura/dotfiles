@@ -467,12 +467,18 @@ require("lazy").setup({
         },
       })
 
-      vim.lsp.enable("lua_ls")
-      vim.lsp.enable("ts_ls")
-      vim.lsp.enable("eslint")
-      vim.lsp.enable("cssls")
-      vim.lsp.enable("cssmodules_ls")
-      vim.lsp.enable("tailwindcss")
+      local function enable_if_available(name, cmd)
+        if vim.fn.executable(cmd) == 1 then
+          vim.lsp.enable(name)
+        end
+      end
+
+      enable_if_available("lua_ls", "lua-language-server")
+      enable_if_available("ts_ls", "typescript-language-server")
+      enable_if_available("eslint", "vscode-eslint-language-server")
+      enable_if_available("cssls", "vscode-css-language-server")
+      enable_if_available("cssmodules_ls", "cssmodules-language-server")
+      enable_if_available("tailwindcss", "tailwindcss-language-server")
     end,
   },
   {
