@@ -1,5 +1,6 @@
 path=(
   "$HOME/.local/share/mise/shims"
+  "$HOME/.bun/bin"
   "$HOME/.cargo/bin"
   "$HOME/.deno/bin"
   "$HOME/go/bin"

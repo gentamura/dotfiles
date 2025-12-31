@@ -25,3 +25,19 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Ignore Claude local settings and metadata
+.claude/*local*
+.claude/metadata.json
+
+# Ignore Serena
+.serena/
+
+# Ignore Claude Code Custom Command for kiro
+.cckiro/
+
+# Ignore local memo
+.memo.local.md
+
+# Ignore Zed editor settings
+.zed/
