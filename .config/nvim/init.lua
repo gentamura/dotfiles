@@ -58,10 +58,13 @@ require("lazy").setup({
     "svrana/neosolarized.nvim",
     dependencies = { "tjdevries/colorbuddy.vim" },
     config = function()
-      require("neosolarized").setup({
+      local neosolarized = require("neosolarized")
+      neosolarized.setup({
         comment_italics = true,
       })
-      vim.cmd("colorscheme neosolarized")
+      if type(neosolarized.set_colors) == "function" then
+        vim.cmd("colorscheme neosolarized")
+      end
 
       local cb = require("colorbuddy.init")
       local Color = cb.Color
@@ -158,7 +161,11 @@ require("lazy").setup({
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     config = function()
-      require("nvim-treesitter.configs").setup({
+      local ok, configs = pcall(require, "nvim-treesitter.configs")
+      if not ok then
+        return
+      end
+      configs.setup({
         ensure_installed = {
           "astro",
           "bash",
@@ -453,31 +460,19 @@ require("lazy").setup({
     end,
   },
   {
-    "VonHeikemen/lsp-zero.nvim",
-    branch = "v1.x",
-    dependencies = {
-      { "neovim/nvim-lspconfig" },
-      { "williamboman/mason.nvim" },
-      { "williamboman/mason-lspconfig.nvim" },
-      { "hrsh7th/nvim-cmp" },
-      { "hrsh7th/cmp-nvim-lsp" },
-      { "hrsh7th/cmp-buffer" },
-      { "hrsh7th/cmp-path" },
-      { "saadparwaiz1/cmp_luasnip" },
-      { "hrsh7th/cmp-nvim-lua" },
-      { "L3MON4D3/LuaSnip" },
-      { "rafamadriz/friendly-snippets" },
-    },
+    "williamboman/mason.nvim",
     config = function()
-      local lsp = require("lsp-zero")
-      lsp.preset("recommended")
-      lsp.setup()
-
       require("mason").setup({})
-      require("mason-lspconfig").setup({})
-      local lspconfig = require("lspconfig")
+    end,
+  },
+  {
+    "neovim/nvim-lspconfig",
+    dependencies = { "hrsh7th/cmp-nvim-lsp" },
+    config = function()
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-      lspconfig.lua_ls.setup({
+      vim.lsp.config("lua_ls", {
+        capabilities = capabilities,
         settings = {
           Lua = {
             diagnostics = {
@@ -486,11 +481,12 @@ require("lazy").setup({
           },
         },
       })
-      lspconfig.ts_ls.setup({})
-      lspconfig.eslint.setup({})
-      lspconfig.cssls.setup({})
-      lspconfig.cssmodules_ls.setup({})
-      lspconfig.tailwindcss.setup({
+      vim.lsp.config("ts_ls", { capabilities = capabilities })
+      vim.lsp.config("eslint", { capabilities = capabilities })
+      vim.lsp.config("cssls", { capabilities = capabilities })
+      vim.lsp.config("cssmodules_ls", { capabilities = capabilities })
+      vim.lsp.config("tailwindcss", {
+        capabilities = capabilities,
         -- https://cva.style/docs/installation#intellisense
         settings = {
           tailwindCSS = {
@@ -501,6 +497,52 @@ require("lazy").setup({
             },
           },
         },
+      })
+
+      vim.lsp.enable("lua_ls")
+      vim.lsp.enable("ts_ls")
+      vim.lsp.enable("eslint")
+      vim.lsp.enable("cssls")
+      vim.lsp.enable("cssmodules_ls")
+      vim.lsp.enable("tailwindcss")
+    end,
+  },
+  {
+    "hrsh7th/nvim-cmp",
+    dependencies = {
+      "L3MON4D3/LuaSnip",
+      "saadparwaiz1/cmp_luasnip",
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-nvim-lua",
+      "rafamadriz/friendly-snippets",
+    },
+    config = function()
+      local cmp = require("cmp")
+      local luasnip = require("luasnip")
+
+      require("luasnip.loaders.from_vscode").lazy_load()
+
+      cmp.setup({
+        snippet = {
+          expand = function(args)
+            luasnip.lsp_expand(args.body)
+          end,
+        },
+        mapping = cmp.mapping.preset.insert({
+          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+          ["<C-f>"] = cmp.mapping.scroll_docs(4),
+          ["<C-Space>"] = cmp.mapping.complete(),
+          ["<C-e>"] = cmp.mapping.abort(),
+          ["<CR>"] = cmp.mapping.confirm({ select = true }),
+        }),
+        sources = cmp.config.sources({
+          { name = "nvim_lsp" },
+          { name = "luasnip" },
+          { name = "buffer" },
+          { name = "path" },
+        }),
       })
     end,
   },
