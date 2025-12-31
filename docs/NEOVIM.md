@@ -60,14 +60,6 @@ Text object
 - `Space + co`: Outgoing calls.
 - `Alt + d`: Toggle terminal (normal/terminal).
 
-## Copilot
-
-- `Ctrl + g`: Accept suggestion.
-- `Ctrl + j`: Next suggestion.
-- `Ctrl + k`: Previous suggestion.
-- `Ctrl + o`: Dismiss suggestion.
-- `Ctrl + s`: Trigger suggestion.
-
 ## Notes
 
 - Plugins are managed by lazy.nvim and installed on first launch.
