@@ -61,6 +61,7 @@ require("lazy").setup({
       require("neosolarized").setup({
         comment_italics = true,
       })
+      vim.cmd("colorscheme neosolarized")
 
       local cb = require("colorbuddy.init")
       local Color = cb.Color
@@ -74,10 +75,10 @@ require("lazy").setup({
       Group.new("CursorLineNr", colors.yellow, colors.black, styles.NONE, colors.base1)
       Group.new("Visual", colors.none, colors.base03, styles.reverse)
 
-      local cError = groups.Error.fg
-      local cInfo = groups.Information.fg
-      local cWarn = groups.Warning.fg
-      local cHint = groups.Hint.fg
+      local cError = (groups.Error and groups.Error.fg) or colors.red
+      local cInfo = (groups.Information and groups.Information.fg) or colors.blue
+      local cWarn = (groups.Warning and groups.Warning.fg) or colors.yellow
+      local cHint = (groups.Hint and groups.Hint.fg) or colors.cyan
 
       Group.new("DiagnosticVirtualTextError", cError, cError:dark():dark():dark():dark(), styles.NONE)
       Group.new("DiagnosticVirtualTextInfo", cInfo, cInfo:dark():dark():dark(), styles.NONE)
@@ -485,7 +486,7 @@ require("lazy").setup({
           },
         },
       })
-      lspconfig.tsserver.setup({})
+      lspconfig.ts_ls.setup({})
       lspconfig.eslint.setup({})
       lspconfig.cssls.setup({})
       lspconfig.cssmodules_ls.setup({})
