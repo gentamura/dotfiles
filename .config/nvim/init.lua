@@ -209,15 +209,6 @@ require("lazy").setup({
     end,
   },
   {
-    "tpope/vim-fugitive",
-    config = function()
-      vim.keymap.set("n", "<leader>gs", function()
-        vim.api.nvim_command("tabnew")
-        vim.cmd("Git")
-      end)
-    end,
-  },
-  {
     "lewis6991/gitsigns.nvim",
     config = function()
       require("gitsigns").setup({
