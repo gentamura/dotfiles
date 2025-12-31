@@ -39,22 +39,32 @@ vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 --[[ Netrw ]]
 vim.g.netrw_localmovecmd = "mv"
 
---[[ Package manager ]]
-return require("packer").startup(function()
-  -- Package manager
-  use("wbthomason/packer.nvim")
+--[[ Plugin manager ]]
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable",
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
 
-  -- Colorscheme
-  -- https://zenn.dev/takuya/articles/4472285edbc132#%E3%82%AB%E3%83%A9%E3%83%BC%E3%82%B9%E3%82%AD%E3%83%BC%E3%83%A0%3A-neosolarized
-  use({
+require("lazy").setup({
+  {
     "svrana/neosolarized.nvim",
-    requires = {
-      "tjdevries/colorbuddy.vim",
-    },
+    dependencies = { "tjdevries/colorbuddy.vim" },
     config = function()
-      require("neosolarized").setup({
+      local neosolarized = require("neosolarized")
+      neosolarized.setup({
         comment_italics = true,
       })
+      if type(neosolarized.set_colors) == "function" then
+        vim.cmd("colorscheme neosolarized")
+      end
 
       local cb = require("colorbuddy.init")
       local Color = cb.Color
@@ -68,10 +78,10 @@ return require("packer").startup(function()
       Group.new("CursorLineNr", colors.yellow, colors.black, styles.NONE, colors.base1)
       Group.new("Visual", colors.none, colors.base03, styles.reverse)
 
-      local cError = groups.Error.fg
-      local cInfo = groups.Information.fg
-      local cWarn = groups.Warning.fg
-      local cHint = groups.Hint.fg
+      local cError = (groups.Error and groups.Error.fg) or colors.red
+      local cInfo = (groups.Information and groups.Information.fg) or colors.blue
+      local cWarn = (groups.Warning and groups.Warning.fg) or colors.yellow
+      local cHint = (groups.Hint and groups.Hint.fg) or colors.cyan
 
       Group.new("DiagnosticVirtualTextError", cError, cError:dark():dark():dark():dark(), styles.NONE)
       Group.new("DiagnosticVirtualTextInfo", cInfo, cInfo:dark():dark():dark(), styles.NONE)
@@ -82,13 +92,10 @@ return require("packer").startup(function()
       Group.new("DiagnosticUnderlineInfo", colors.none, colors.none, styles.undercurl, cInfo)
       Group.new("DiagnosticUnderlineHint", colors.none, colors.none, styles.undercurl, cHint)
     end,
-  })
-
-  -- Status bar
-  -- https://zenn.dev/takuya/articles/4472285edbc132#%E3%82%B9%E3%83%86%E3%83%BC%E3%82%BF%E3%82%B9%E3%83%A9%E3%82%A4%E3%83%B3%3A-lualine
-  use({
+  },
+  {
     "nvim-lualine/lualine.nvim",
-    requires = { "kyazdani42/nvim-web-devicons", opt = true },
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
       local lualine = require("lualine")
 
@@ -140,14 +147,25 @@ return require("packer").startup(function()
         extensions = { "fugitive" },
       })
     end,
-  })
-
-  -- Syntax highlight
-  use({
-    "nvim-treesitter/nvim-treesitter",
-    run = ":TSUpdate",
+  },
+  {
+    "nvim-tree/nvim-web-devicons",
     config = function()
-      require("nvim-treesitter.configs").setup({
+      require("nvim-web-devicons").setup({
+        color_icons = true,
+        default = true,
+      })
+    end,
+  },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    config = function()
+      local ok, configs = pcall(require, "nvim-treesitter.configs")
+      if not ok then
+        return
+      end
+      configs.setup({
         ensure_installed = {
           "astro",
           "bash",
@@ -189,30 +207,8 @@ return require("packer").startup(function()
         },
       })
     end,
-  })
-
-  use({
-    "nvim-tree/nvim-web-devicons",
-    config = function()
-      require("nvim-web-devicons").setup({
-        color_icons = true,
-        default = true,
-      })
-    end,
-  })
-
-  -- Git
-  use({
-    "tpope/vim-fugitive",
-    config = function()
-      vim.keymap.set("n", "<leader>gs", function()
-        vim.api.nvim_command("tabnew")
-        vim.cmd("Git")
-      end)
-    end,
-  })
-
-  use({
+  },
+  {
     "lewis6991/gitsigns.nvim",
     config = function()
       require("gitsigns").setup({
@@ -272,36 +268,23 @@ return require("packer").startup(function()
         end,
       })
     end,
-  })
-
-  -- Close tags
-  use({
+  },
+  {
     "windwp/nvim-ts-autotag",
     config = function()
       require("nvim-ts-autotag").setup()
     end,
-  })
-
-  use({
+  },
+  {
     "windwp/nvim-autopairs",
     config = function()
       require("nvim-autopairs").setup()
     end,
-  })
-
-  -- Comment out
-  use({
+  },
+  {
     "terrortylor/nvim-comment",
     config = function()
       require("nvim_comment").setup({
-        -- hook = function()
-        --   if
-        --     vim.api.nvim_buf_get_option(0, "filetype") == "javascriptreact"
-        --     or vim.api.nvim_buf_get_option(0, "filetype") == "typescriptreact"
-        --   then
-        --     vim.api.nvim_buf_set_option(0, "commentstring", "{/*%s*/}")
-        --   end
-        -- end,
         hook = function()
           local line_number = vim.api.nvim_win_get_cursor(0)[1] - 1
           local current_line = vim.api.nvim_buf_get_lines(0, line_number, line_number + 1, false)[1]
@@ -313,12 +296,6 @@ return require("packer").startup(function()
             or filetype == "javascriptreact"
             or filetype == "typescriptreact"
           then
-            -- if string.match(current_line, "^%s*<") or string.match(current_line, "^%s*</") then
-            --   vim.api.nvim_buf_set_option(0, "commentstring", "{/*%s*/}")
-            -- else
-            --   vim.api.nvim_buf_set_option(0, "commentstring", "// %s")
-            -- end
-
             if string.match(current_line, "^%s*<") or string.match(current_line, "^%s*</") then
               vim.api.nvim_buf_set_option(0, "commentstring", "{/*%s*/}")
             elseif string.match(current_line, "^%s*{/%*") then
@@ -330,95 +307,60 @@ return require("packer").startup(function()
         end,
       })
     end,
-  })
-
-  -- Formatter
-  use({
+  },
+  {
     "ckipp01/stylua-nvim",
     config = function()
       require("stylua-nvim").setup()
-
-      -- format on save
       vim.api.nvim_command("autocmd BufWritePre *.lua lua require('stylua-nvim').format_file()")
     end,
-  })
-
-  -- Prettier
-  use({
-    "jose-elias-alvarez/null-ls.nvim",
-    requires = {
-      "nvim-lua/plenary.nvim",
-      "MunifTanjim/prettier.nvim",
-    },
+  },
+  {
+    "stevearc/conform.nvim",
     config = function()
-      local null_ls = require("null-ls")
-      local prettier = require("prettier")
-
-      null_ls.setup({
-        sources = {
-          -- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/d67ebfe23d3ecbccb743971b88760f2967cd8f18/lua/null-ls/builtins/formatting/prettier.lua
-          null_ls.builtins.formatting.prettier,
+      local conform = require("conform")
+      conform.setup({
+        formatters_by_ft = {
+          css = { "prettier" },
+          graphql = { "prettier" },
+          html = { "prettier" },
+          javascript = { "prettier" },
+          javascriptreact = { "prettier" },
+          json = { "prettier" },
+          less = { "prettier" },
+          markdown = { "prettier" },
+          scss = { "prettier" },
+          typescript = { "prettier" },
+          typescriptreact = { "prettier" },
+          yaml = { "prettier" },
         },
-        on_attach = function(client, bufnr)
-          local group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = false })
-          local event = "BufWritePre" -- or "BufWritePost"
-          local async = event == "BufWritePost"
-
-          if client.supports_method("textDocument/formatting") then
-            vim.keymap.set("n", "<Leader>f", function()
-              vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
-            end, { buffer = bufnr, desc = "[lsp] format" })
-
-            -- format on save
-            vim.api.nvim_clear_autocmds({ buffer = bufnr, group = group })
-            vim.api.nvim_create_autocmd(event, {
-              buffer = bufnr,
-              group = group,
-              callback = function()
-                vim.lsp.buf.format({ bufnr = bufnr, async = async, timeout_ms = 2000 })
-              end,
-              desc = "[lsp] format on save",
-            })
-          end
-
-          if client.supports_method("textDocument/rangeFormatting") then
-            vim.keymap.set("x", "<Leader>f", function()
-              vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
-            end, { buffer = bufnr, desc = "[lsp] format" })
-          end
-        end,
+        formatters = {
+          prettier = {
+            prepend_args = { "--print-width", "120", "--semi", "--single-quote" },
+          },
+        },
       })
 
-      prettier.setup({
-        bin = "prettier", -- or `'prettierd'` (v0.22+)
-        filetypes = {
-          "css",
-          "graphql",
-          "html",
-          "javascript",
-          "javascriptreact",
-          "json",
-          "less",
-          "markdown",
-          "scss",
-          "typescript",
-          "typescriptreact",
-          "yaml",
-        },
-        cli_options = {
-          print_width = 120,
-          semi = true,
-          single_quote = true,
-        },
+      vim.keymap.set("n", "<Leader>f", function()
+        conform.format({ async = true })
+      end, { desc = "[conform] format" })
+
+      vim.keymap.set("x", "<Leader>f", function()
+        conform.format({ async = true })
+      end, { desc = "[conform] format" })
+
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        callback = function(args)
+          conform.format({ bufnr = args.buf, timeout_ms = 2000 })
+        end,
+        desc = "[conform] format on save",
       })
     end,
-  })
-
-  -- Fuzzy finder
-  use({
+  },
+  {
     "nvim-telescope/telescope.nvim",
     tag = "0.1.4",
-    requires = { { "nvim-lua/plenary.nvim" } },
+    dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
       local builtin = require("telescope.builtin")
       vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
@@ -429,6 +371,9 @@ return require("packer").startup(function()
       require("telescope").setup({
         defaults = {
           file_ignore_patterns = { ".git/", ".yarn/" },
+          preview = {
+            treesitter = false,
+          },
         },
         pickers = {
           find_files = {
@@ -437,12 +382,11 @@ return require("packer").startup(function()
         },
       })
     end,
-  })
-
-  use({
+  },
+  {
     "nvimdev/lspsaga.nvim",
     commit = "a958783bc9d86217a4200845cd950314857636f3",
-    after = "nvim-lspconfig",
+    dependencies = { "neovim/nvim-lspconfig" },
     config = function()
       require("lspsaga").setup({})
       local keymap = vim.keymap.set
@@ -454,17 +398,14 @@ return require("packer").startup(function()
       keymap({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>")
 
       -- https://dev.neovim.pro/lspsaga/rename/
-      -- keymap("n", "gr", "<cmd>Lspsaga rename<CR>")
       keymap("n", "gr", "<cmd>Lspsaga rename ++project<CR>")
 
       -- https://dev.neovim.pro/lspsaga/definition/
-      -- keymap("n", "gd", "<cmd>Lspsaga peek_definition<CR>")
       keymap("n", "gd", "<cmd>Lspsaga goto_definition<CR>")
 
       -- https://dev.neovim.pro/lspsaga/diagnostic/
       keymap("n", "[e", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
       keymap("n", "]e", "<cmd>Lspsaga diagnostic_jump_next<CR>")
-      -- Diagnostic jump with filter like Only jump to error
       keymap("n", "[E", function()
         require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
       end)
@@ -477,7 +418,6 @@ return require("packer").startup(function()
 
       -- https://dev.neovim.pro/lspsaga/hover/
       keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>")
-      -- keymap("n", "K", "<cmd>Lspsaga hover_doc ++keep<CR>")
 
       -- https://dev.neovim.pro/lspsaga/callhierarchy/
       keymap("n", "<Leader>ci", "<cmd>Lspsaga incoming_calls<CR>")
@@ -486,55 +426,35 @@ return require("packer").startup(function()
       -- https://dev.neovim.pro/lspsaga/floaterm/
       keymap({ "n", "t" }, "<A-d>", "<cmd>Lspsaga term_toggle<CR>")
     end,
-  })
-
-  use({
-    "VonHeikemen/lsp-zero.nvim",
-    branch = "v1.x",
-    requires = {
-      -- LSP Support
-      { "neovim/nvim-lspconfig" }, -- Required
-      { "williamboman/mason.nvim" }, -- Optional
-      { "williamboman/mason-lspconfig.nvim" }, -- Optional
-
-      -- Autocompletion
-      { "hrsh7th/nvim-cmp" }, -- Required
-      { "hrsh7th/cmp-nvim-lsp" }, -- Required
-      { "hrsh7th/cmp-buffer" }, -- Optional
-      { "hrsh7th/cmp-path" }, -- Optional
-      { "saadparwaiz1/cmp_luasnip" }, -- Optional
-      { "hrsh7th/cmp-nvim-lua" }, -- Optional
-
-      -- Snippets
-      { "L3MON4D3/LuaSnip" }, -- Required
-      { "rafamadriz/friendly-snippets" }, -- Optional
-    },
+  },
+  {
+    "williamboman/mason.nvim",
     config = function()
-      -- Learn the keybindings, see :help lsp-zero-keybindings
-      -- Learn to configure LSP servers, see :help lsp-zero-api-showcase
-      local lsp = require("lsp-zero")
-      lsp.preset("recommended")
-      lsp.setup()
-
-      -- mason
       require("mason").setup({})
-      require("mason-lspconfig").setup({})
-      local lspconfig = require("lspconfig")
+    end,
+  },
+  {
+    "neovim/nvim-lspconfig",
+    dependencies = { "hrsh7th/cmp-nvim-lsp" },
+    config = function()
+      local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-      lspconfig.lua_ls.setup({
+      vim.lsp.config("lua_ls", {
+        capabilities = capabilities,
         settings = {
           Lua = {
             diagnostics = {
-              globals = { "vim", "use" },
+              globals = { "vim" },
             },
           },
         },
       })
-      lspconfig.tsserver.setup({})
-      lspconfig.eslint.setup({})
-      lspconfig.cssls.setup({})
-      lspconfig.cssmodules_ls.setup({})
-      lspconfig.tailwindcss.setup({
+      vim.lsp.config("ts_ls", { capabilities = capabilities })
+      vim.lsp.config("eslint", { capabilities = capabilities })
+      vim.lsp.config("cssls", { capabilities = capabilities })
+      vim.lsp.config("cssmodules_ls", { capabilities = capabilities })
+      vim.lsp.config("tailwindcss", {
+        capabilities = capabilities,
         -- https://cva.style/docs/installation#intellisense
         settings = {
           tailwindCSS = {
@@ -546,49 +466,80 @@ return require("packer").startup(function()
           },
         },
       })
-    end,
-  })
 
-  -- GitHub Copilot
-  use({
-    "github/copilot.vim",
+      local function enable_if_available(name, cmd)
+        if vim.fn.executable(cmd) == 1 then
+          vim.lsp.enable(name)
+        end
+      end
+
+      enable_if_available("lua_ls", "lua-language-server")
+      enable_if_available("ts_ls", "typescript-language-server")
+      enable_if_available("eslint", "vscode-eslint-language-server")
+      enable_if_available("cssls", "vscode-css-language-server")
+      enable_if_available("cssmodules_ls", "cssmodules-language-server")
+      enable_if_available("tailwindcss", "tailwindcss-language-server")
+    end,
+  },
+  {
+    "hrsh7th/nvim-cmp",
+    dependencies = {
+      "L3MON4D3/LuaSnip",
+      "saadparwaiz1/cmp_luasnip",
+      "hrsh7th/cmp-nvim-lsp",
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-nvim-lua",
+      "rafamadriz/friendly-snippets",
+    },
     config = function()
-      vim.g.copilot_no_tab_map = true
+      local cmp = require("cmp")
+      local luasnip = require("luasnip")
 
-      local keymap = vim.keymap.set
-      -- https://github.com/orgs/community/discussions/29817#discussioncomment-4217615
-      keymap(
-        "i",
-        "<C-g>",
-        'copilot#Accept("<CR>")',
-        { silent = true, expr = true, script = true, replace_keycodes = false }
-      )
-      keymap("i", "<C-j>", "<Plug>(copilot-next)")
-      keymap("i", "<C-k>", "<Plug>(copilot-previous)")
-      keymap("i", "<C-o>", "<Plug>(copilot-dismiss)")
-      keymap("i", "<C-s>", "<Plug>(copilot-suggest)")
+      require("luasnip.loaders.from_vscode").lazy_load()
+
+      cmp.setup({
+        snippet = {
+          expand = function(args)
+            luasnip.lsp_expand(args.body)
+          end,
+        },
+        mapping = cmp.mapping.preset.insert({
+          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+          ["<C-f>"] = cmp.mapping.scroll_docs(4),
+          ["<C-Space>"] = cmp.mapping.complete(),
+          ["<C-e>"] = cmp.mapping.abort(),
+          ["<CR>"] = cmp.mapping.confirm({ select = true }),
+        }),
+        sources = cmp.config.sources({
+          { name = "nvim_lsp" },
+          { name = "luasnip" },
+          { name = "buffer" },
+          { name = "path" },
+        }),
+      })
     end,
-  })
-
-  -- Flutter
-  use({
+  },
+  {
     "akinsho/flutter-tools.nvim",
-    requires = {
+    dependencies = {
       "nvim-lua/plenary.nvim",
-      "stevearc/dressing.nvim", -- optional for vim.ui.select
+      "stevearc/dressing.nvim",
     },
     config = function()
       require("flutter-tools").setup({})
     end,
-  })
-
-  -- Dart
-  use({
+  },
+  {
     "dart-lang/dart-vim-plugin",
     ft = { "dart" },
-    config = function()
+    init = function()
       vim.g.dart_style_guide = 2
       vim.g.dart_format_on_save = 1
     end,
-  })
-end)
+  },
+}, {
+  defaults = {
+    lazy = false,
+  },
+})
