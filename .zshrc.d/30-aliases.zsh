@@ -1,0 +1,5 @@
+alias sz='source ~/.zshrc'
+alias ls='eza'
+alias ll='ls -la'
+alias cat='bat'
+alias pn='pnpm'
