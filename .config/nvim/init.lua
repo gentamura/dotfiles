@@ -397,6 +397,9 @@ require("lazy").setup({
       require("telescope").setup({
         defaults = {
           file_ignore_patterns = { ".git/", ".yarn/" },
+          preview = {
+            treesitter = false,
+          },
         },
         pickers = {
           find_files = {
