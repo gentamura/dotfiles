@@ -7,3 +7,9 @@ function peco-history-selection() {
 
 zle -N peco-history-selection
 bindkey '^R' peco-history-selection
+
+function tms() {
+  local name="${PWD##*/}"
+  name="${name// /_}"
+  tmux new -s "$name"
+}
