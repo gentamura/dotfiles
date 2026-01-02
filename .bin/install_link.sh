@@ -9,7 +9,7 @@ if [ ! -d "$HOME/.dotbackup" ];then
 fi
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd -P)"
-DOT_DIR=$(dirname ${SCRIPT_DIR})
+DOT_DIR=$(dirname "${SCRIPT_DIR}")
 
 if [[ "$HOME" != "$DOT_DIR" ]];then
   for f in $DOT_DIR/.??*; do
