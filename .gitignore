@@ -33,6 +33,7 @@
 !/.gitconfig
 !/.gitignore_global
 
+!/bootstrap.sh
 !/Brewfile
 !/README.md
 !/docs/
