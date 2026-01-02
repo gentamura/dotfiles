@@ -270,6 +270,11 @@ require("lazy").setup({
     end,
   },
   {
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    opts = {},
+  },
+  {
     "windwp/nvim-ts-autotag",
     config = function()
       require("nvim-ts-autotag").setup()
@@ -459,7 +464,6 @@ require("lazy").setup({
           },
         },
       })
-      vim.lsp.config("ts_ls", { capabilities = capabilities })
       vim.lsp.config("eslint", { capabilities = capabilities })
       vim.lsp.config("cssls", { capabilities = capabilities })
       vim.lsp.config("cssmodules_ls", { capabilities = capabilities })
@@ -484,7 +488,6 @@ require("lazy").setup({
       end
 
       enable_if_available("lua_ls", "lua-language-server")
-      enable_if_available("ts_ls", "typescript-language-server")
       enable_if_available("eslint", "vscode-eslint-language-server")
       enable_if_available("cssls", "vscode-css-language-server")
       enable_if_available("cssmodules_ls", "cssmodules-language-server")
