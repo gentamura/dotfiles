@@ -384,6 +384,16 @@ require("lazy").setup({
     end,
   },
   {
+    "Allianaab2m/telescope-kensaku.nvim",
+    dependencies = {
+      "vim-denops/denops.vim",
+      "lambdalisue/vim-kensaku",
+    },
+    config = function()
+      require("telescope").load_extension("kensaku")
+    end,
+  },
+  {
     "nvimdev/lspsaga.nvim",
     commit = "a958783bc9d86217a4200845cd950314857636f3",
     dependencies = { "neovim/nvim-lspconfig" },
