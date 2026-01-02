@@ -2,7 +2,7 @@
 set -ue
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd -P)"
-DOT_DIR=$(dirname ${SCRIPT_DIR})
+DOT_DIR=$(dirname "${SCRIPT_DIR}")
 BREWFILE="$DOT_DIR/Brewfile"
 
 if which brew >/dev/null 2>&1; then
