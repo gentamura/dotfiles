@@ -4,7 +4,7 @@ This directory contains Claude Code configuration for consistent development wor
 
 ## Structure
 
-```
+```text
 .claude/
 ├── CLAUDE.md           # Operating model and instructions for Claude
 ├── rules/              # Always-on constraints and coding standards
