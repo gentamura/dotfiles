@@ -31,7 +31,7 @@ This repository follows a structured Claude Code setup with four conceptual laye
 - All files must end with an actual newline character
 - Use `rg` (ripgrep) instead of `grep` whenever possible
 - Use `psql` directly instead of Drizzle Studio for database checks
-- Check documentation using `context7` before implementing frameworks/libraries
+- Check documentation using Context7 MCP server (`mcp__context7__query-docs`) before implementing frameworks/libraries
 - Never start the development server in background using `&`
 
 ## Build & Type Checking
