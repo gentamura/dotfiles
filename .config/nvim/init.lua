@@ -35,6 +35,12 @@ vim.opt.updatetime = 50
 --[[ Keymap ]]
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>cp", function()
+  vim.fn.setreg("+", vim.fn.expand("%:p"))
+end, { desc = "Copy full path" })
+vim.keymap.set("n", "<leader>cr", function()
+  vim.fn.setreg("+", vim.fn.expand("%"))
+end, { desc = "Copy relative path" })
 
 --[[ Netrw ]]
 vim.g.netrw_localmovecmd = "mv"
