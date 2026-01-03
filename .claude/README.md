@@ -70,11 +70,17 @@ Reusable procedures that Claude can invoke.
 
 ### New Machine
 
-1. Clone dotfiles repository
-2. Symlink to home directory:
+1. Clone dotfiles repository:
 
 ```bash
-ln -s ~/path/to/dotfiles/.claude ~/.claude
+git clone https://github.com/gentamura/dotfiles.git ~/dotfiles
+```
+
+2. Run installation (includes `.claude/` symlink):
+
+```bash
+cd ~/dotfiles
+.bin/install.sh link
 ```
 
 3. Verify setup:
@@ -82,6 +88,8 @@ ln -s ~/path/to/dotfiles/.claude ~/.claude
 ```bash
 ls -la ~/.claude
 ```
+
+The `install_link.sh` script automatically symlinks all dotfiles including `.claude/` to your home directory.
 
 ### Per-Project Override
 
