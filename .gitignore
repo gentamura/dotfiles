@@ -40,6 +40,7 @@
 !/.claude/skills/
 !/.claude/skills/**
 !/.claude/CLAUDE.md
+!/.claude/README.md
 !/.gitconfig
 !/.gitignore_global
 
