@@ -10,7 +10,7 @@
 
 - Use `rg` (ripgrep) instead of `grep` whenever possible
 - Use `psql` directly for database access
-- Check `context7` documentation before implementing frameworks/libraries
+- Check documentation via [Context7 MCP server](https://github.com/upstash/context7) before implementing frameworks/libraries
 
 ## Development Server
 
