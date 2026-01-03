@@ -61,8 +61,8 @@ Structured release process with verification and rollback procedures.
 # Create release branch (if using git-flow)
 git checkout -b release/v1.2.3 develop
 
-# Update version
-npm version patch|minor|major
+# Update version (using npm via bunx for version bumping)
+bunx npm version patch|minor|major
 
 # Update CHANGELOG
 # Add release notes
