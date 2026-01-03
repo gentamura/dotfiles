@@ -200,7 +200,7 @@ How do we prevent this class of issue?
 
 ### Initial Alert
 
-```
+```text
 🚨 [P1] Investigating issues with [service]
 
 Impact: [Brief description]
@@ -212,7 +212,7 @@ Updates to follow.
 
 ### Update
 
-```
+```text
 🔄 [P1] Update on [service] issue
 
 Status: Root cause identified, fix in progress
@@ -224,7 +224,7 @@ Next update in [X] minutes.
 
 ### Resolution
 
-```
+```text
 ✅ [P1] Resolved: [service] issue
 
 Duration: [X hours Y minutes]
