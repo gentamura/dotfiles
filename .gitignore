@@ -39,10 +39,10 @@
 !/.claude/commands/**
 !/.claude/skills/
 !/.claude/skills/**
+!/.claude/CLAUDE.md
 !/.gitconfig
 !/.gitignore_global
 
-!/CLAUDE.md
 !/bootstrap.sh
 !/Brewfile
 !/README.md
