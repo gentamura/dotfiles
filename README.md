@@ -91,6 +91,19 @@ Creates symbolic links from this repository to your home directory. Existing fil
 - `.config/mise/` - Mise tool configuration
 - `.stylua.toml` - Lua formatting configuration
 
+### Claude Code Configuration
+
+AI-assisted development configuration in `.claude/`:
+
+| Component | Purpose |
+|-----------|---------|
+| `rules/` | Coding standards (TypeScript, React, Drizzle, Git) |
+| `agents/` | Role-based agents (tech-lead, frontend, backend, infra, qa) |
+| `commands/` | Slash commands (`/req`, `/adr`, `/pr:review`, `/release`) |
+| `skills/` | Reusable procedures (requirements, ADR, migration, hotfix) |
+
+See [.claude/README.md](.claude/README.md) for detailed documentation.
+
 ### Development Tools
 
 See `Brewfile` for the complete list of installed tools and applications.
@@ -135,6 +148,13 @@ dotfiles/
 │   ├── install_brew.sh   # Homebrew and packages installation
 │   └── install_link.sh   # Dotfiles symlinking
 ├── Brewfile              # Homebrew packages definition
+├── .claude/              # Claude Code configuration
+│   ├── CLAUDE.md         # Operating model for Claude
+│   ├── README.md         # Human documentation
+│   ├── rules/            # Coding standards
+│   ├── agents/           # Role-based agents
+│   ├── commands/         # Slash commands
+│   └── skills/           # Reusable procedures
 ├── .config/              # Application configurations
 ├── .gitconfig            # Git configuration
 └── README.md             # This file
