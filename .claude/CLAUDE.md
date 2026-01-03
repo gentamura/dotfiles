@@ -26,6 +26,17 @@ This repository follows a structured Claude Code setup with four conceptual laye
 - Private overlays (CLAUDE.local.md) contain environment-specific data
 - Repo-local CLAUDE.md defines project-specific truth
 
+### Plan Mode and ADR Integration
+
+When in Plan Mode, suggest creating an ADR (`/adr`) if any of these conditions apply:
+
+- Multiple viable technical approaches exist
+- The decision affects project-wide architecture
+- The choice is difficult to reverse later
+- Future developers will ask "why this approach?"
+
+Workflow: Plan Mode (how to implement) → ADR (why this approach) → Implementation
+
 ## Development Practices
 
 - All files must end with an actual newline character
