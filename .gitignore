@@ -30,9 +30,19 @@
 !/.config/nvim/lua/gentamura/**
 !/.config/mise/
 !/.config/mise/config.toml
+!/.claude/
+!/.claude/rules/
+!/.claude/rules/**
+!/.claude/agents/
+!/.claude/agents/**
+!/.claude/commands/
+!/.claude/commands/**
+!/.claude/skills/
+!/.claude/skills/**
 !/.gitconfig
 !/.gitignore_global
 
+!/CLAUDE.md
 !/bootstrap.sh
 !/Brewfile
 !/README.md
