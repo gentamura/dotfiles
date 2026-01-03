@@ -10,6 +10,11 @@ Leader is set to `Space`.
 
 - `Space + pv`: Open netrw file explorer.
 
+## Clipboard
+
+- `Space + cp`: Copy full path.
+- `Space + cr`: Copy relative path.
+
 ## Git (gitsigns.nvim)
 
 Navigation
