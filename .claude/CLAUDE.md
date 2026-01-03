@@ -37,6 +37,15 @@ When in Plan Mode, suggest creating an ADR (`/adr`) if any of these conditions a
 
 Workflow: Plan Mode (how to implement) → ADR (why this approach) → Implementation
 
+### Plan and ADR Storage
+
+Save implementation plans and ADRs in the **project repository**, not in global dotfiles:
+
+- Plans: `docs/plans/YYYY-MM-DD-<feature-name>.md`
+- ADRs: `docs/adr/NNNN-<title>.md`
+
+When exiting Plan Mode, save the approved plan so sub-agents can reference it during parallel implementation.
+
 ## Development Practices
 
 - All files must end with an actual newline character
