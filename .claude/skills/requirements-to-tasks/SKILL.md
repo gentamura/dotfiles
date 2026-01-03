@@ -20,7 +20,7 @@ Transform requirements into structured, actionable work items.
 
 Format each story as:
 
-```
+```markdown
 As a [user type],
 I want [capability],
 so that [benefit].
