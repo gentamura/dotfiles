@@ -27,6 +27,8 @@ Always-active constraints that Claude follows automatically.
 | `git.md` | Staging policy, pre-commit checks |
 | `development.md` | General practices, tooling |
 | `nextjs.md` | Next.js 15 specific patterns |
+| `terraform.md` | State management, workflow, security |
+| `sst.md` | SST framework patterns, linking, secrets |
 
 ### Agents
 

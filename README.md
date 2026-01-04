@@ -97,7 +97,7 @@ AI-assisted development configuration in `.claude/`:
 
 | Component | Purpose |
 |-----------|---------|
-| `rules/` | Coding standards (TypeScript, React, Drizzle, Git) |
+| `rules/` | Coding standards (TypeScript, React, Drizzle, Git, Terraform, SST) |
 | `agents/` | Role-based agents (tech-lead, frontend, backend, infra, qa) |
 | `commands/` | Slash commands (`/req`, `/adr`, `/pr:review`, `/release`) |
 | `skills/` | Reusable procedures (requirements, ADR, migration, hotfix) |
