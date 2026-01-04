@@ -81,7 +81,7 @@ sst secret set DatabaseUrl "postgresql://..."
 # Use in function
 sst.aws.Function("Api", {
   handler: "handler.main",
-  link: [/* secrets are auto-linked */],
+  link: [/* secrets available via Resource API */],
 });
 ```
 
