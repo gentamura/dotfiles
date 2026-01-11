@@ -95,7 +95,7 @@ Reusable procedures that Claude can invoke.
 git clone https://github.com/gentamura/dotfiles.git ~/dotfiles
 ```
 
-2. Run installation (includes `.claude/` symlink):
+2. Run installation:
 
 ```bash
 cd ~/dotfiles
@@ -105,10 +105,15 @@ cd ~/dotfiles
 3. Verify setup:
 
 ```bash
-ls -la ~/.claude
+ls -la ~/.claude/CLAUDE.md
+# Should show symlink to dotfiles
 ```
 
-The `install_link.sh` script automatically symlinks all dotfiles including `.claude/` to your home directory.
+The `install_link.sh` script symlinks individual config files into `~/.claude/` (not the entire directory, to preserve Claude Code runtime data).
+
+Symlinked items:
+- `CLAUDE.md`, `README.md`
+- `rules/`, `agents/`, `commands/`, `skills/`
 
 ### Per-Project Override
 
