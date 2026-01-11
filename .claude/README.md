@@ -42,6 +42,23 @@ Specialized agents for different responsibilities.
 | `infra-engineer` | AWS, IaC, CI/CD |
 | `qa-verifier` | Testing, code review, release validation |
 
+### Agent Tools
+
+Tools available to agents for code operations.
+
+| Tool | Purpose |
+|------|---------|
+| `Read` | Read file contents |
+| `Write` | Create or overwrite files |
+| `Edit` | Edit existing files |
+| `Glob` | Find files by pattern |
+| `Grep` | Search file contents |
+| `Bash` | Execute shell commands |
+| `LSP` | Language Server Protocol for code navigation (go to definition, find references, hover info) |
+| `Task` | Delegate to sub-agents |
+
+Note: LSP requires language server support for the target language (e.g., TypeScript, Python).
+
 ### Commands
 
 Slash commands to trigger specific workflows.
