@@ -33,7 +33,13 @@ if [[ "$HOME" != "$DOT_DIR" ]];then
   command echo "Setting up Claude Code configuration..."
 
   if [ -d "$DOT_DIR/.claude" ]; then
-    # Ensure ~/.claude directory exists
+    # Remove ~/.claude if it's a symlink (from previous install method)
+    if [ -L "$HOME/.claude" ]; then
+      command echo "Removing existing ~/.claude symlink..."
+      command rm -f "$HOME/.claude"
+    fi
+
+    # Ensure ~/.claude is a real directory
     if [ ! -d "$HOME/.claude" ]; then
       command mkdir -p "$HOME/.claude"
     fi
