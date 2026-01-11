@@ -8,6 +8,7 @@ tools:
   - Glob
   - Grep
   - Bash
+  - LSP
 ---
 
 # Infrastructure Engineer Agent
