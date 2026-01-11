@@ -4,7 +4,7 @@
 
 ### Dynamic Route Parameters
 
-Dynamic route params are `Promise<T>` types in Next.js 15.
+In Next.js 15+ (App Router, Server Components), dynamic route params are `Promise<T>`, so you must `await` them before use.
 
 ```typescript
 // app/users/[id]/page.tsx
@@ -14,7 +14,7 @@ export default function Page({ params }: { params: { id: string } }) {
   return <div>{params.id}</div>;
 }
 
-// Good - await params
+// Good - await params (Next.js 15+)
 export default async function Page({
   params
 }: {

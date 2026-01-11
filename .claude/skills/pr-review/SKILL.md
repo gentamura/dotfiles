@@ -48,7 +48,7 @@ Go through each checklist section below.
 
 ### Code Quality
 
-- [ ] `bun run lint:fix` passes
+- [ ] `bun run lint:fix` (or `bun run lint` if no fix script) passes
 - [ ] No console.log in production code
 - [ ] Follows existing patterns in codebase
 - [ ] No dead code or commented-out code

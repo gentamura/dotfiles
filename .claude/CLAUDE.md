@@ -58,7 +58,7 @@ When exiting Plan Mode, save the approved plan so sub-agents can reference it du
 
 After any file changes, always run:
 
-1. `bun run lint:fix` - Fix formatting and linting issues
+1. `bun run lint:fix` (or `bun run lint` if no fix script) - Fix formatting and linting issues
 2. `bun run build` - Verify TypeScript types and build success
 3. Fix any errors before committing
 

@@ -21,7 +21,7 @@ $ARGUMENTS
 - [ ] User actions in event handlers
 
 ### Code Quality
-- [ ] `bun run lint:fix` passes
+- [ ] `bun run lint:fix` (or `bun run lint` if no fix script) passes
 - [ ] `bun run build` passes
 - [ ] No console.log in production code
 - [ ] Follows existing patterns

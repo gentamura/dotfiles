@@ -12,7 +12,7 @@ This scaffold uses [Zod](https://zod.dev/) for runtime validation. Ensure it is 
 
 ```bash
 # Check if Zod is installed
-bun pm ls | grep zod
+bun pm ls | rg zod
 
 # Install if needed
 bun add zod
@@ -72,6 +72,7 @@ export type ResourceResponse = z.infer<typeof ResourceResponseSchema>;
 ```typescript
 // route.ts
 import { NextResponse } from 'next/server';
+import { z } from 'zod';
 import { CreateResourceSchema } from './types';
 
 export async function POST(request: Request) {

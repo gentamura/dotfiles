@@ -10,7 +10,7 @@
 
 Before committing:
 
-1. Run `bun run lint:fix`
+1. Run `bun run lint:fix` (or `bun run lint` if no fix script)
 2. Run `bun run build`
 3. Verify all checks pass
 
