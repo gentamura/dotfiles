@@ -78,6 +78,7 @@ Reusable procedures that Claude can invoke.
 
 | Skill | Purpose |
 |-------|---------|
+| `agent-browser` | Browser automation for web testing, screenshots, and data extraction |
 | `requirements-to-tasks` | Requirements → User Stories → Tasks |
 | `architecture-adr` | ADR creation with options analysis |
 | `pr-review` | Systematic code review checklist |
