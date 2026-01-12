@@ -30,6 +30,8 @@
 !/.config/nvim/lua/gentamura/**
 !/.config/mise/
 !/.config/mise/config.toml
+!/.config/ghostty/
+!/.config/ghostty/config
 !/.claude/
 !/.claude/rules/
 !/.claude/rules/**
