@@ -382,9 +382,30 @@ require("lazy").setup({
       vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
       vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
 
+      local actions_state = require("telescope.actions.state")
+      local copy_relative_path = function()
+        local entry = actions_state.get_selected_entry()
+        if not entry or not entry.path then
+          return
+        end
+        local relative = vim.fn.fnamemodify(entry.path, ":.")
+        vim.fn.setreg("+", relative)
+      end
+      local copy_full_path = function()
+        local entry = actions_state.get_selected_entry()
+        if not entry or not entry.path then
+          return
+        end
+        vim.fn.setreg("+", entry.path)
+      end
+
       require("telescope").setup({
         defaults = {
           file_ignore_patterns = { ".git/", ".yarn/", "node_modules/" },
+          mappings = {
+            i = { ["<C-y>"] = copy_relative_path, ["<M-y>"] = copy_full_path },
+            n = { ["<C-y>"] = copy_relative_path, ["<M-y>"] = copy_full_path },
+          },
           preview = {
             treesitter = false,
           },

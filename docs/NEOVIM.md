@@ -49,6 +49,8 @@ Text object
 - `Space + fg`: Live grep.
 - `Space + fb`: Buffers.
 - `Space + fh`: Help tags.
+- `Ctrl + y`: Copy relative path to clipboard (in telescope).
+- `Alt + y`: Copy full path to clipboard (in telescope).
 
 ## LSP UI (lspsaga.nvim)
 
