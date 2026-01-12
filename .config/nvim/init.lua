@@ -375,13 +375,16 @@ require("lazy").setup({
     config = function()
       local builtin = require("telescope.builtin")
       vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
+      vim.keymap.set("n", "<leader>fa", function()
+        builtin.find_files({ no_ignore = true })
+      end, { desc = "Find all files (including gitignored)" })
       vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
       vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
       vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
 
       require("telescope").setup({
         defaults = {
-          file_ignore_patterns = { ".git/", ".yarn/" },
+          file_ignore_patterns = { ".git/", ".yarn/", "node_modules/" },
           preview = {
             treesitter = false,
           },
