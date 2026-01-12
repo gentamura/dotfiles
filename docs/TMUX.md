@@ -33,6 +33,11 @@ Save and restore sessions:
 
 Resurrect snapshots are stored under `~/.local/share/tmux/resurrect/` by default. You can override the location with `set -g @resurrect-dir "~/.tmux/resurrect"` in `.tmux.conf` if you prefer the legacy path.
 
+Auto restore is enabled via tmux-continuum with the following settings in `.tmux.conf`:
+
+- `set -g @continuum-boot 'on'`
+- `set -g @continuum-restore 'on'`
+
 ## Status Bar
 
 - Position: top
