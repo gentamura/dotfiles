@@ -45,6 +45,7 @@ Text object
 ## Telescope
 
 - `Space + ff`: Find files.
+- `Space + fa`: Find all files (including gitignored, e.g., `.env.local`).
 - `Space + fg`: Live grep.
 - `Space + fb`: Buffers.
 - `Space + fh`: Help tags.
