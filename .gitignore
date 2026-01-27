@@ -32,6 +32,8 @@
 !/.config/mise/config.toml
 !/.config/ghostty/
 !/.config/ghostty/config
+!/.config/obsidian/
+!/.config/obsidian/**
 !/.claude/
 !/.claude/rules/
 !/.claude/rules/**
