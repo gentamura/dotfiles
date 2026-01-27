@@ -137,6 +137,28 @@ if [[ "$HOME" != "$DOT_DIR" ]]; then
       fi
     done
   fi
+
+  # Obsidian Vim config
+  OBSIDIAN_VAULT_DIR="$HOME/Documents/Obsidian Vault"
+  OBSIDIAN_VIMRC_SRC="$DOT_DIR/.config/obsidian/.obsidian.vimrc"
+  OBSIDIAN_VIMRC_DEST="$OBSIDIAN_VAULT_DIR/.obsidian.vimrc"
+
+  if [ -e "$OBSIDIAN_VIMRC_SRC" ]; then
+    if [ -d "$OBSIDIAN_VAULT_DIR" ]; then
+      if [ -L "$OBSIDIAN_VIMRC_DEST" ]; then
+        command rm -f "$OBSIDIAN_VIMRC_DEST"
+      fi
+
+      if [ -e "$OBSIDIAN_VIMRC_DEST" ]; then
+        command mv "$OBSIDIAN_VIMRC_DEST" "$HOME/.dotbackup/.obsidian.vimrc_${TIMESTAMP}"
+      fi
+
+      command ln -snf "$OBSIDIAN_VIMRC_SRC" "$OBSIDIAN_VIMRC_DEST"
+      command echo "Linked: $OBSIDIAN_VIMRC_DEST -> $OBSIDIAN_VIMRC_SRC"
+    else
+      command echo "Warning: Obsidian vault not found at $OBSIDIAN_VAULT_DIR, skipped linking .obsidian.vimrc" >&2
+    fi
+  fi
 else
   command echo "same install src dest"
 fi
