@@ -49,8 +49,29 @@ Text object
 - `Space + fg`: Live grep.
 - `Space + fb`: Buffers.
 - `Space + fh`: Help tags.
+- `Space + fe`: File browser.
 - `Ctrl + y`: Copy relative path to clipboard (in telescope).
 - `Alt + y`: Copy full path to clipboard (in telescope).
+
+### Telescope File Browser (telescope-file-browser.nvim)
+
+Insert mode
+- `Alt + c`: Create file/directory (append `/` for directory).
+- `Alt + r`: Rename.
+- `Alt + m`: Move.
+- `Alt + y`: Copy.
+- `Alt + d`: Remove.
+- `Ctrl + o`: Open.
+- `Ctrl + h`: Toggle hidden.
+
+Normal mode
+- `c`: Create file/directory (append `/` for directory).
+- `r`: Rename.
+- `m`: Move.
+- `y`: Copy.
+- `d`: Remove.
+- `o`: Open.
+- `h`: Toggle hidden.
 
 ## LSP UI (lspsaga.nvim)
 
