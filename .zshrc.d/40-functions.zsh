@@ -25,6 +25,9 @@ function codex() {
   window_id="$(tmux display-message -p '#{window_id}')"
   prev_name="$(tmux display-message -p -t "$window_id" '#{window_name}')"
   auto_rename="$(tmux show-options -w -v -t "$window_id" automatic-rename)"
+  if [ -z "$auto_rename" ]; then
+    auto_rename="on"
+  fi
 
   setopt local_traps
   trap 'tmux rename-window -t "$window_id" "$prev_name"; tmux set-window-option -t "$window_id" automatic-rename "$auto_rename"' EXIT INT TERM
@@ -47,6 +50,9 @@ function claude() {
   window_id="$(tmux display-message -p '#{window_id}')"
   prev_name="$(tmux display-message -p -t "$window_id" '#{window_name}')"
   auto_rename="$(tmux show-options -w -v -t "$window_id" automatic-rename)"
+  if [ -z "$auto_rename" ]; then
+    auto_rename="on"
+  fi
 
   setopt local_traps
   trap 'tmux rename-window -t "$window_id" "$prev_name"; tmux set-window-option -t "$window_id" automatic-rename "$auto_rename"' EXIT INT TERM
