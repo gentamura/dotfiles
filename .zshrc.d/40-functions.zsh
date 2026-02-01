@@ -42,7 +42,7 @@ function codex() {
 # Rename the tmux window to "Claude Code" while running Claude
 function claude() {
   if [ -z "${TMUX-}" ]; then
-    command claude "$@"
+    command "$HOME/.local/bin/claude" "$@"
     return $?
   fi
 
@@ -59,7 +59,7 @@ function claude() {
 
   tmux set-window-option -t "$window_id" automatic-rename off
   tmux rename-window -t "$window_id" "Claude Code"
-  command claude "$@"
+  command "$HOME/.local/bin/claude" "$@"
   exit_code=$?
   return $exit_code
 }
