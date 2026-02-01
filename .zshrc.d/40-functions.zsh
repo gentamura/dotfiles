@@ -17,7 +17,7 @@ function tms() {
 # Rename the tmux window to "Codex" while running Codex
 function codex() {
   if [ -z "${TMUX-}" ]; then
-    command "$HOME/.local/bin/codex" "$@"
+    command codex "$@"
     return $?
   fi
 
@@ -34,7 +34,7 @@ function codex() {
 
   tmux set-window-option -t "$window_id" automatic-rename off
   tmux rename-window -t "$window_id" "Codex"
-  command "$HOME/.local/bin/codex" "$@"
+  command codex "$@"
   exit_code=$?
   return $exit_code
 }
