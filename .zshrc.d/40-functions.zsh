@@ -16,34 +16,44 @@ function tms() {
 
 # Rename the tmux window to "Codex" while running Codex
 function codex() {
-  if [ -n "${TMUX-}" ]; then
-    local window_id
-    window_id="$(tmux display-message -p '#{window_id}')"
-    local prev_name
-    prev_name="$(tmux display-message -p -t "$window_id" '#{window_name}')"
-    tmux set-window-option -t "$window_id" automatic-rename off
-    tmux rename-window -t "$window_id" "Codex"
+  if [ -z "${TMUX-}" ]; then
+    command codex "$@"
+    return $?
   fi
+
+  local window_id prev_name auto_rename exit_code
+  window_id="$(tmux display-message -p '#{window_id}')"
+  prev_name="$(tmux display-message -p -t "$window_id" '#{window_name}')"
+  auto_rename="$(tmux show-options -w -v -t "$window_id" automatic-rename)"
+
+  setopt local_traps
+  trap 'tmux rename-window -t "$window_id" "$prev_name"; tmux set-window-option -t "$window_id" automatic-rename "$auto_rename"' EXIT INT TERM
+
+  tmux set-window-option -t "$window_id" automatic-rename off
+  tmux rename-window -t "$window_id" "Codex"
   command codex "$@"
-  if [ -n "${TMUX-}" ]; then
-    tmux rename-window -t "$window_id" "$prev_name"
-    tmux set-window-option -t "$window_id" automatic-rename on
-  fi
+  exit_code=$?
+  return $exit_code
 }
 
 # Rename the tmux window to "Claude Code" while running Claude
 function claude() {
-  if [ -n "${TMUX-}" ]; then
-    local window_id
-    window_id="$(tmux display-message -p '#{window_id}')"
-    local prev_name
-    prev_name="$(tmux display-message -p -t "$window_id" '#{window_name}')"
-    tmux set-window-option -t "$window_id" automatic-rename off
-    tmux rename-window -t "$window_id" "Claude Code"
+  if [ -z "${TMUX-}" ]; then
+    command claude "$@"
+    return $?
   fi
+
+  local window_id prev_name auto_rename exit_code
+  window_id="$(tmux display-message -p '#{window_id}')"
+  prev_name="$(tmux display-message -p -t "$window_id" '#{window_name}')"
+  auto_rename="$(tmux show-options -w -v -t "$window_id" automatic-rename)"
+
+  setopt local_traps
+  trap 'tmux rename-window -t "$window_id" "$prev_name"; tmux set-window-option -t "$window_id" automatic-rename "$auto_rename"' EXIT INT TERM
+
+  tmux set-window-option -t "$window_id" automatic-rename off
+  tmux rename-window -t "$window_id" "Claude Code"
   command claude "$@"
-  if [ -n "${TMUX-}" ]; then
-    tmux rename-window -t "$window_id" "$prev_name"
-    tmux set-window-option -t "$window_id" automatic-rename on
-  fi
+  exit_code=$?
+  return $exit_code
 }
