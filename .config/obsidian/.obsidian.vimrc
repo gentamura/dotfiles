@@ -1,3 +1,0 @@
-" clipboard
-set clipboard=unnamedplus
-
