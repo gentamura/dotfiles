@@ -373,6 +373,7 @@ require("lazy").setup({
     tag = "0.1.4",
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
+      local actions = require("telescope.actions")
       local builtin = require("telescope.builtin")
       vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
       vim.keymap.set("n", "<leader>fa", function()
@@ -403,8 +404,16 @@ require("lazy").setup({
         defaults = {
           file_ignore_patterns = { ".git/", ".yarn/", "node_modules/" },
           mappings = {
-            i = { ["<C-y>"] = copy_relative_path, ["<M-y>"] = copy_full_path },
-            n = { ["<C-y>"] = copy_relative_path, ["<M-y>"] = copy_full_path },
+            i = {
+              ["<C-y>"] = copy_relative_path,
+              ["<M-y>"] = copy_full_path,
+              ["<esc>"] = actions.close,
+            },
+            n = {
+              ["<C-y>"] = copy_relative_path,
+              ["<M-y>"] = copy_full_path,
+              ["<esc>"] = actions.close,
+            },
           },
           preview = {
             treesitter = false,
