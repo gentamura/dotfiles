@@ -138,6 +138,26 @@ if [[ "$HOME" != "$DOT_DIR" ]]; then
     done
   fi
 
+  # Lazygit config
+  LAZYGIT_CONFIG_SRC="$DOT_DIR/.config/lazygit/config.yml"
+  LAZYGIT_CONFIG_DIR="$HOME/Library/Application Support/lazygit"
+  LAZYGIT_CONFIG_DEST="$LAZYGIT_CONFIG_DIR/config.yml"
+
+  if [ -e "$LAZYGIT_CONFIG_SRC" ]; then
+    command mkdir -p "$LAZYGIT_CONFIG_DIR"
+
+    if [ -L "$LAZYGIT_CONFIG_DEST" ]; then
+      command rm -f "$LAZYGIT_CONFIG_DEST"
+    fi
+
+    if [ -e "$LAZYGIT_CONFIG_DEST" ]; then
+      command mv "$LAZYGIT_CONFIG_DEST" "$HOME/.dotbackup/lazygit_config_${TIMESTAMP}.yml"
+    fi
+
+    command ln -snf "$LAZYGIT_CONFIG_SRC" "$LAZYGIT_CONFIG_DEST"
+    command echo "Linked: $LAZYGIT_CONFIG_DEST -> $LAZYGIT_CONFIG_SRC"
+  fi
+
   # Obsidian Vim config
   OBSIDIAN_VAULT_DIR="$HOME/Documents/Obsidian Vault"
   OBSIDIAN_VIMRC_SRC="$DOT_DIR/.config/obsidian/.obsidian.vimrc"
