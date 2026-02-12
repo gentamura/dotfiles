@@ -34,6 +34,8 @@
 !/.config/ghostty/config
 !/.config/obsidian/
 !/.config/obsidian/**
+!/.config/lazygit/
+!/.config/lazygit/config.yml
 !/.claude/
 !/.claude/rules/
 !/.claude/rules/**
