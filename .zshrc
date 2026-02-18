@@ -11,3 +11,7 @@ fi
 for config in "$zshrc_dir"/*.zsh; do
   [ -f "$config" ] && source "$config"
 done
+
+# Machine-local overrides (not tracked in repo)
+# Use ~/.zshrc.local for private or machine-specific values.
+[ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"

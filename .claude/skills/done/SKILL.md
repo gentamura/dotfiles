@@ -64,8 +64,12 @@ Review the entire conversation and extract:
 
 Save to: `$OBSIDIAN_VAULT/Sessions/`
 
-> **Requires**: `OBSIDIAN_VAULT` environment variable pointing to your vault root.
-> e.g. `export OBSIDIAN_VAULT="$HOME/Documents/Obsidian Vault"` in `~/.zshrc`
+> **Requires**: `OBSIDIAN_VAULT` environment variable.
+> Set it in `~/.zshrc.local`:
+> ```
+> # 00-env
+> export OBSIDIAN_VAULT="$HOME/Documents/Obsidian Vault"
+> ```
 >
 > If unset, abort and ask the user to configure it.
 
