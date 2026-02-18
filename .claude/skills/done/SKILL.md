@@ -43,7 +43,8 @@ if [ -n "$CLAUDECODE" ]; then
 elif [ -n "$CODEX_THREAD_ID" ]; then
   echo "agent=codex"
   echo "session_id=${CODEX_THREAD_ID}"
-  echo "resume=codex exec resume ${CODEX_THREAD_ID}"
+  echo "resume=codex resume ${CODEX_THREAD_ID}"
+  echo "resume_exec=codex exec resume ${CODEX_THREAD_ID} \"<prompt>\""
 else
   echo "agent=unknown"
   echo "session_id=unknown"
