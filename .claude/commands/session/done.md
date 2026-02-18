@@ -25,7 +25,7 @@ if [ -n "$CLAUDECODE" ]; then
 elif [ -n "$CODEX_THREAD_ID" ]; then
   echo "agent=codex"
   echo "session_id=${CODEX_THREAD_ID}"
-  echo "resume=codex resume ${CODEX_THREAD_ID}"
+  echo "resume=codex exec resume ${CODEX_THREAD_ID}"
 else
   echo "agent=unknown"
   echo "session_id=unknown"
@@ -50,7 +50,7 @@ Save to: `$OBSIDIAN_VAULT/Sessions/`
 
 > **Requires**: `OBSIDIAN_VAULT` environment variable.
 > Set it in `~/.zshrc.local`:
-> ```
+> ```bash
 > # 00-env
 > export OBSIDIAN_VAULT="$HOME/Documents/Obsidian Vault"
 > ```
