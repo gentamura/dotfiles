@@ -62,7 +62,12 @@ Review the entire conversation and extract:
 
 ### 3. Write to Obsidian Vault
 
-Save to: `/Users/gentamura/Documents/Obsidian Vault/Sessions/`
+Save to: `$OBSIDIAN_VAULT/Sessions/`
+
+> **Requires**: `OBSIDIAN_VAULT` environment variable pointing to your vault root.
+> e.g. `export OBSIDIAN_VAULT="$HOME/Documents/Obsidian Vault"` in `~/.zshrc`
+>
+> If unset, abort and ask the user to configure it.
 
 File name format: `YYYY-MM-DD-<branch>-<time>.md`
 

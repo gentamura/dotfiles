@@ -46,7 +46,12 @@ Review the full conversation history and extract:
 
 ### 3. Write the file
 
-Save to: `/Users/gentamura/Documents/Obsidian Vault/Sessions/`
+Save to: `$OBSIDIAN_VAULT/Sessions/`
+
+> **Requires**: `OBSIDIAN_VAULT` environment variable set to your vault path.
+> e.g. `export OBSIDIAN_VAULT="$HOME/Documents/Obsidian Vault"` in `~/.zshrc`
+>
+> If unset, abort and ask the user to configure it.
 
 File name: `<date>-<branch>-<time>.md`
 Example: `2026-02-18-main-143022.md`
