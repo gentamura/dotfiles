@@ -82,6 +82,20 @@ Installs Homebrew (if needed) and all packages defined in `Brewfile`, including:
 
 Creates symbolic links from this repository to your home directory. Existing files are backed up to `~/.dotbackup`.
 
+For machine-local/private shell variables, use `.zshrc.local`:
+- Keep the real file at `~/dotfiles/.zshrc.local` (not tracked by Git)
+- Symlink `~/.zshrc.local` to that file
+- `.zshrc` loads `~/.zshrc.local` automatically if present
+
+Example:
+```bash
+cat > ~/dotfiles/.zshrc.local <<'EOF'
+# 00-env
+export OBSIDIAN_VAULT="$HOME/Documents/Obsidian Vault"
+EOF
+ln -snf ~/dotfiles/.zshrc.local ~/.zshrc.local
+```
+
 ## What's Included
 
 ### Configuration Files
