@@ -118,6 +118,14 @@ AI-assisted development configuration in `.claude/`:
 
 See [.claude/README.md](.claude/README.md) for detailed documentation.
 
+### Shared Agent Skills (Claude + Codex)
+
+Shared skill source lives in `.agents/skills/` and is reused by both agents.
+
+- Canonical skill files: `.agents/skills/<skill-name>/SKILL.md`
+- Claude compatibility: `.claude/skills/<skill-name>` is a symlink to `.agents/skills/<skill-name>`
+- This keeps one skill definition while supporting both Claude Code and Codex flows
+
 ### Development Tools
 
 See `Brewfile` for the complete list of installed tools and applications.

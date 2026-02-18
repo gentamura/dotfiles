@@ -37,7 +37,7 @@ date +%H%M%S
 if [ -n "$CLAUDECODE" ]; then
   echo "agent=claude-code"
   SESSION_ID=$(tail -100 ~/.claude/history.jsonl 2>/dev/null \
-    | python3 -c "import sys,json; ids=[json.loads(l).get('sessionId','') for l in sys.stdin if 'sessionId' in l]; print(ids[-1] if ids else 'unknown')" 2>/dev/null)
+    | python3 -c "import sys,json; ids=[sid for l in sys.stdin if 'sessionId' in l for sid in [json.loads(l).get('sessionId','')] if sid]; print(ids[-1] if ids else 'unknown')" 2>/dev/null)
   echo "session_id=${SESSION_ID}"
   echo "resume=claude --resume ${SESSION_ID}"
 elif [ -n "$CODEX_THREAD_ID" ]; then
@@ -74,7 +74,7 @@ mkdir -p "$OBSIDIAN_VAULT/Sessions"
 
 > **Requires**: `OBSIDIAN_VAULT` environment variable.
 > Set it in `~/.zshrc.local`:
-> ```
+> ```bash
 > # 00-env
 > export OBSIDIAN_VAULT="$HOME/Documents/Obsidian Vault"
 > ```

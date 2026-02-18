@@ -47,6 +47,9 @@
 !/.claude/skills/**
 !/.claude/CLAUDE.md
 !/.claude/README.md
+!/.agents/
+!/.agents/skills/
+!/.agents/skills/**
 !/.gitconfig
 !/.gitignore_global
 
