@@ -19,13 +19,13 @@ if [ -n "$CLAUDECODE" ]; then
   echo "agent=claude-code"
   # Get Claude Code session ID from history
   SESSION_ID=$(tail -100 ~/.claude/history.jsonl 2>/dev/null \
-    | python3 -c "import sys,json; ids=[json.loads(l).get('sessionId','') for l in sys.stdin if 'sessionId' in l]; print(ids[-1] if ids else 'unknown')" 2>/dev/null)
+    | python3 -c "import sys,json; ids=[sid for l in sys.stdin if 'sessionId' in l for sid in [json.loads(l).get('sessionId','')] if sid]; print(ids[-1] if ids else 'unknown')" 2>/dev/null)
   echo "session_id=${SESSION_ID}"
   echo "resume=claude --resume ${SESSION_ID}"
 elif [ -n "$CODEX_THREAD_ID" ]; then
   echo "agent=codex"
   echo "session_id=${CODEX_THREAD_ID}"
-  echo "resume=codex exec resume ${CODEX_THREAD_ID}"
+  echo "resume=codex resume ${CODEX_THREAD_ID}"
 else
   echo "agent=unknown"
   echo "session_id=unknown"

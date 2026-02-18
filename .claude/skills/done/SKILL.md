@@ -64,6 +64,13 @@ Review the entire conversation and extract:
 
 Save to: `$OBSIDIAN_VAULT/Sessions/`
 
+Before saving, verify and prepare the target directory:
+
+```bash
+[ -n "$OBSIDIAN_VAULT" ] || { echo "OBSIDIAN_VAULT is not set"; exit 1; }
+mkdir -p "$OBSIDIAN_VAULT/Sessions"
+```
+
 > **Requires**: `OBSIDIAN_VAULT` environment variable.
 > Set it in `~/.zshrc.local`:
 > ```
