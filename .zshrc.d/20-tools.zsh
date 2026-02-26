@@ -1,5 +1,9 @@
-if command -v starship >/dev/null 2>&1; then
-  eval "$(starship init zsh)"
+autoload -U promptinit
+promptinit
+
+if (( $+functions[prompt_pure_setup] )); then
+  setopt prompt_subst
+  prompt pure
 fi
 
 if command -v mise >/dev/null 2>&1; then

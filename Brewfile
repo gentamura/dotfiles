@@ -44,7 +44,7 @@ brew "peco" # interactive filter
 brew "postgresql@14" # PostgreSQL 14
 brew "ripgrep" # fast search tool
 brew "rust" # Rust toolchain
-brew "starship" # shell prompt
+brew "pure" # shell prompt
 brew "telnet" # telnet client
 brew "tig" # TUI git client
 brew "tmux" # terminal multiplexer
