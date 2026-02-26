@@ -1,7 +1,8 @@
 autoload -U promptinit
 promptinit
 
-if (( $+functions[prompt_pure_setup] )); then
+# pure may be provided via fpath and not autoloaded yet.
+if prompt -l | grep -qx "pure"; then
   setopt prompt_subst
   prompt pure
 fi
