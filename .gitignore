@@ -18,7 +18,6 @@
 !/.bin/install_brew.sh
 !/.bin/install_link.sh
 !/.config/
-!/.config/starship.toml
 !/.config/nvim/
 !/.config/nvim/init.lua
 !/.config/nvim/.luarc.json
