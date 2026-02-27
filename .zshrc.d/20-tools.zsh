@@ -1,11 +1,9 @@
 autoload -U promptinit
 promptinit
 
-# pure may be provided via fpath and not autoloaded yet.
-if prompt -l | grep -qx "pure"; then
-  setopt prompt_subst
-  prompt pure
-fi
+# Try applying pure directly; if unavailable, keep zsh default prompt.
+setopt prompt_subst
+prompt pure >/dev/null 2>&1
 
 if command -v mise >/dev/null 2>&1; then
   eval "$(mise activate zsh)"
