@@ -1,0 +1,54 @@
+#!/usr/bin/env zsh
+set -euo pipefail
+
+usage() {
+  cat <<'EOF'
+Usage:
+  .bin/pr-thread-reply <pr-number> <comment-id> <message>
+  .bin/pr-thread-reply <pr-number> <comment-id> --body-file <path>
+
+Examples:
+  .bin/pr-thread-reply 43 2862929964 "Fixed in cadd44b."
+  .bin/pr-thread-reply 43 2862929964 --body-file /tmp/reply.md
+EOF
+}
+
+if [[ $# -lt 3 ]]; then
+  usage >&2
+  exit 1
+fi
+
+PR_NUMBER="$1"
+COMMENT_ID="$2"
+shift 2
+
+BODY=""
+if [[ "${1:-}" == "--body-file" ]]; then
+  if [[ $# -ne 2 ]]; then
+    usage >&2
+    exit 1
+  fi
+  BODY_FILE="$2"
+  if [[ ! -f "$BODY_FILE" ]]; then
+    echo "Body file not found: $BODY_FILE" >&2
+    exit 1
+  fi
+  BODY="$(cat "$BODY_FILE")"
+else
+  BODY="$*"
+fi
+
+if [[ -z "$BODY" ]]; then
+  echo "Reply body must not be empty." >&2
+  exit 1
+fi
+
+REPO="$(gh repo view --json nameWithOwner --jq .nameWithOwner)"
+if [[ -z "$REPO" ]]; then
+  echo "Failed to resolve repository via gh repo view." >&2
+  exit 1
+fi
+
+gh api "repos/${REPO}/pulls/${PR_NUMBER}/comments" \
+  -f body="$BODY" \
+  -F in_reply_to="$COMMENT_ID"
