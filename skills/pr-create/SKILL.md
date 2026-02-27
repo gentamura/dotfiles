@@ -35,6 +35,7 @@ Create a pull request from local changes with consistent, low-friction steps.
 - Create PR with `gh pr create`.
 - Use explicit `--base` and `--head` when known.
 - Include concise summary and verification notes in PR body.
+- After PR creation, open it in the browser with `gh pr view --web`.
 
 ### 6. Report Back
 
@@ -57,4 +58,5 @@ git add <files...>
 git commit -m "<message>"
 git push -u origin <branch-name>
 gh pr create --base <base> --head <branch-name> --title "<title>" --body "<summary>"
+gh pr view --web
 ```
