@@ -113,7 +113,7 @@ if [[ "$HOME" != "$DOT_DIR" ]]; then
     fi
 
     # Config files/directories to symlink from dotfiles
-    CLAUDE_CONFIGS=("CLAUDE.md" "README.md" "rules" "agents" "commands" "skills")
+    CLAUDE_CONFIGS=("CLAUDE.md" "README.md" "rules" "agents" "commands")
 
     for config in "${CLAUDE_CONFIGS[@]}"; do
       src="$DOT_DIR/.claude/$config"
@@ -135,6 +135,48 @@ if [[ "$HOME" != "$DOT_DIR" ]]; then
         command ln -snf "$src" "$dest"
         command echo "Linked: $dest -> $src"
       fi
+    done
+  fi
+
+  # Shared skills source for both Claude and Codex.
+  SHARED_SKILLS_SRC="$DOT_DIR/skills"
+
+  # Claude uses a direct skills symlink.
+  CLAUDE_SKILLS_DEST="$HOME/.claude/skills"
+  if [ -d "$SHARED_SKILLS_SRC" ]; then
+    if [ -L "$CLAUDE_SKILLS_DEST" ]; then
+      command rm -f "$CLAUDE_SKILLS_DEST"
+    fi
+    if [ -e "$CLAUDE_SKILLS_DEST" ]; then
+      command echo "Backing up $CLAUDE_SKILLS_DEST"
+      command mv "$CLAUDE_SKILLS_DEST" "$HOME/.dotbackup/.claude_skills_${TIMESTAMP}"
+    fi
+    command ln -snf "$SHARED_SKILLS_SRC" "$CLAUDE_SKILLS_DEST"
+    command echo "Linked: $CLAUDE_SKILLS_DEST -> $SHARED_SKILLS_SRC"
+  fi
+
+  # Codex keeps ~/.codex/skills/.system. Link shared skills individually.
+  CODEX_SKILLS_DEST="$HOME/.codex/skills"
+
+  if [ -d "$SHARED_SKILLS_SRC" ]; then
+    command mkdir -p "$CODEX_SKILLS_DEST"
+
+    # Link each shared skill directory (exclude hidden directories).
+    for skill_src in "$SHARED_SKILLS_SRC"/*(N); do
+      skill_name="$(basename "$skill_src")"
+      skill_dest="$CODEX_SKILLS_DEST/$skill_name"
+
+      if [ -L "$skill_dest" ]; then
+        command rm -f "$skill_dest"
+      fi
+
+      if [ -e "$skill_dest" ]; then
+        command echo "Backing up $skill_dest"
+        command mv "$skill_dest" "$HOME/.dotbackup/.codex_skill_${skill_name}_${TIMESTAMP}"
+      fi
+
+      command ln -snf "$skill_src" "$skill_dest"
+      command echo "Linked: $skill_dest -> $skill_src"
     done
   fi
 

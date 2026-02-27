@@ -9,7 +9,7 @@ This repository follows a structured Claude Code setup with four conceptual laye
 | Layer    | Purpose                                          | Location             |
 |----------|--------------------------------------------------|----------------------|
 | Rules    | Always-on constraints and safety rails           | `.claude/rules/`     |
-| Skills   | Reusable procedures for recurring tasks          | `.claude/skills/`    |
+| Skills   | Reusable procedures for recurring tasks          | `skills/`            |
 | Agents   | Role-based delegation (FE, BE, Infra, QA, Lead)  | `.claude/agents/`    |
 | Commands | Explicit entry points to trigger workflows       | `.claude/commands/`  |
 

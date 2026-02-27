@@ -42,16 +42,17 @@
 !/.claude/agents/**
 !/.claude/commands/
 !/.claude/commands/**
-!/.claude/skills/
-!/.claude/skills/**
 !/.claude/CLAUDE.md
 !/.claude/README.md
+!/skills/
+!/skills/**
 !/.gitconfig
 !/.gitignore_global
 
 !/bootstrap.sh
 !/Brewfile
 !/README.md
+!/AGENTS.md
 !/docs/
 !/docs/NEOVIM.md
 
