@@ -105,18 +105,24 @@ ln -snf ~/dotfiles/.zshrc.local ~/.zshrc.local
 - `.config/mise/` - Mise tool configuration
 - `.stylua.toml` - Lua formatting configuration
 
-### Claude Code Configuration
+### AI Agent Configuration
 
-AI-assisted development configuration in `.claude/`:
+This repository supports both Codex and Claude workflows:
 
-| Component | Purpose |
-|-----------|---------|
-| `rules/` | Coding standards (TypeScript, React, Drizzle, Git, Terraform, SST) |
-| `agents/` | Role-based agents (tech-lead, frontend, backend, infra, qa) |
-| `commands/` | Slash commands (`/req`, `/adr`, `/pr:review`, `/release`) |
-| `skills/` | Reusable procedures (requirements, ADR, migration, hotfix) |
+| Component | Purpose | Location |
+|-----------|---------|----------|
+| Agent entrypoint | Shared agent operating index | `AGENTS.md` |
+| Shared skills | Reusable procedures for both Codex and Claude | `skills/` |
+| Claude rules | Always-on coding constraints | `.claude/rules/` |
+| Claude agents | Role-based delegation profiles | `.claude/agents/` |
+| Claude commands | Slash-command workflow templates | `.claude/commands/` |
 
-See [.claude/README.md](.claude/README.md) for detailed documentation.
+Notes:
+- `install_link.sh` links `~/.claude/skills` to repo `skills/`.
+- `install_link.sh` keeps `~/.codex/skills/.system` and links each shared skill directory from repo `skills/` into `~/.codex/skills/`.
+- `install_link.sh` symlinks Claude config items (`CLAUDE.md`, `README.md`, `rules/`, `agents/`, `commands/`) into `~/.claude/` without replacing the whole `~/.claude` runtime directory.
+
+See [.claude/CLAUDE.md](.claude/CLAUDE.md), [AGENTS.md](AGENTS.md) and [.claude/README.md](.claude/README.md) for details.
 
 ### Development Tools
 
@@ -162,13 +168,14 @@ dotfiles/
 │   ├── install_brew.sh   # Homebrew and packages installation
 │   └── install_link.sh   # Dotfiles symlinking
 ├── Brewfile              # Homebrew packages definition
-├── .claude/              # Claude Code configuration
+├── AGENTS.md             # Shared agent entrypoint for local AI coding agents
+├── skills/               # Shared skills (used by Codex and Claude)
+├── .claude/              # Claude-specific configuration
 │   ├── CLAUDE.md         # Operating model for Claude
 │   ├── README.md         # Human documentation
 │   ├── rules/            # Coding standards
 │   ├── agents/           # Role-based agents
 │   ├── commands/         # Slash commands
-│   └── skills/           # Reusable procedures
 ├── .config/              # Application configurations
 ├── .gitconfig            # Git configuration
 └── README.md             # This file
