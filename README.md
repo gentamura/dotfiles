@@ -122,7 +122,7 @@ Notes:
 - `install_link.sh` keeps `~/.codex/skills/.system` and links each shared skill directory from repo `skills/` into `~/.codex/skills/`.
 - `install_link.sh` symlinks Claude config items (`CLAUDE.md`, `README.md`, `rules/`, `agents/`, `commands/`) into `~/.claude/` without replacing the whole `~/.claude` runtime directory.
 
-See [AGENTS.md](AGENTS.md) and [.claude/README.md](.claude/README.md) for details.
+See [.claude/CLAUDE.md](.claude/CLAUDE.md), [AGENTS.md](AGENTS.md) and [.claude/README.md](.claude/README.md) for details.
 
 ### Development Tools
 
