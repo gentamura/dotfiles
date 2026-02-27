@@ -29,6 +29,7 @@ Entry guide for AI coding agents working in this repository.
 - `drizzle-migration`: Safe Drizzle schema/migration workflow
 - `incident-hotfix`: Incident response and hotfix workflow
 - `pr-create`: Create pull requests from local branch changes
+- `pr-address-bot-reviews`: Triage and address bot review feedback on PRs
 - `pr-review`: Systematic PR review against standards
 - `release-runbook`: Release preparation and execution checklist
 - `requirements-to-tasks`: Break requirements into actionable tasks
