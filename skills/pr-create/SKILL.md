@@ -28,7 +28,11 @@ Create a pull request from local changes with consistent, low-friction steps.
 
 ### 4. Push Branch
 
-- Push with upstream tracking when needed.
+- If you created a new branch in step 2, push with upstream tracking:
+  - `git push -u origin <branch-name>`
+- If you are continuing on the current branch, push current HEAD:
+  - `git push`
+  - or `git push origin HEAD` (explicit form)
 
 ### 5. Open PR
 
@@ -56,7 +60,12 @@ git rev-parse --abbrev-ref HEAD
 git checkout -b <branch-name>   # only when requested
 git add <files...>
 git commit -m "<message>"
+# if new branch was created
 git push -u origin <branch-name>
+# if continuing on current branch
+git push
+# or explicit
+git push origin HEAD
 gh pr create --base <base> --head <branch-name> --title "<title>" --body "<summary>"
 gh pr view --web
 ```
