@@ -56,7 +56,7 @@ Classify each item into:
 - For skipped items: reply with concise rationale.
 - For tradeoffs: ask explicit decision questions.
 - Reply in the correct channel:
-  - Inline review thread: use `skills/pr-address-bot-reviews/scripts/pr-thread-reply <pr> <comment_id> "<response>"`
+  - Inline review thread: first resolve the target with `skills/pr-address-bot-reviews/scripts/find-review-comment-id`, then reply with `skills/pr-address-bot-reviews/scripts/pr-thread-reply`
   - General PR note: use `gh pr comment`
 
 ### 6. Report Back to User
@@ -79,7 +79,7 @@ Classify each item into:
 ```bash
 gh pr view <number> --json number,title,body,reviews,comments,files
 gh pr view <number> --comments
-gh api repos/<owner>/<repo>/pulls/<number>/comments --jq '.[] | [.id,.user.login,.path,.line] | @tsv'
+skills/pr-address-bot-reviews/scripts/find-review-comment-id <number> --login <bot-login> --path <file> [--line <line>]
 # reply to inline review comment thread
 skills/pr-address-bot-reviews/scripts/pr-thread-reply <number> <comment_id> "<response>"
 # optional general PR note
@@ -89,3 +89,10 @@ git add <files...>
 git commit -m "<message>"
 git push
 ```
+
+## Script Split
+
+- `scripts/find-review-comment-id`: resolve a single inline review comment id from `bot login + path + optional line`
+- `scripts/pr-thread-reply`: post a reply to a known inline review comment id
+
+This keeps comment discovery and reply posting separate so failures are easier to diagnose.

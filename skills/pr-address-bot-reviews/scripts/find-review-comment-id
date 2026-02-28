@@ -1,0 +1,92 @@
+#!/usr/bin/env zsh
+set -euo pipefail
+
+usage() {
+  cat <<'EOF'
+Usage:
+  skills/pr-address-bot-reviews/scripts/find-review-comment-id <pr-number> --login <bot-login> --path <file> [--line <line>]
+
+Examples:
+  skills/pr-address-bot-reviews/scripts/find-review-comment-id 43 --login coderabbitai[bot] --path README.md --line 125
+  skills/pr-address-bot-reviews/scripts/find-review-comment-id 43 --login coderabbitai[bot] --path README.md
+EOF
+}
+
+if [[ $# -lt 5 ]]; then
+  usage >&2
+  exit 1
+fi
+
+PR_NUMBER="$1"
+shift
+
+LOGIN=""
+PATH_FILTER=""
+LINE_FILTER=""
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --login)
+      LOGIN="${2:-}"
+      shift 2
+      ;;
+    --path)
+      PATH_FILTER="${2:-}"
+      shift 2
+      ;;
+    --line)
+      LINE_FILTER="${2:-}"
+      shift 2
+      ;;
+    *)
+      echo "Unknown argument: $1" >&2
+      usage >&2
+      exit 1
+      ;;
+  esac
+done
+
+if [[ -z "$LOGIN" || -z "$PATH_FILTER" ]]; then
+  echo "Both --login and --path are required." >&2
+  usage >&2
+  exit 1
+fi
+
+REPO="$(gh repo view --json nameWithOwner --jq .nameWithOwner)"
+if [[ -z "$REPO" ]]; then
+  echo "Failed to resolve repository via gh repo view." >&2
+  exit 1
+fi
+
+COMMENTS_JSON="$(gh api --paginate "repos/${REPO}/pulls/${PR_NUMBER}/comments" | jq -s 'add')"
+
+JQ_FILTER='
+  map(
+    select(.in_reply_to_id == null) |
+    select(.user.login == $login) |
+    select(.path == $path)
+  ) |
+  if $line == "" then
+    .
+  else
+    map(select(((.line // .original_line // 0) | tostring) == $line))
+  end
+'
+
+MATCH_COUNT="$(printf '%s\n' "$COMMENTS_JSON" | jq -r --arg login "$LOGIN" --arg path "$PATH_FILTER" --arg line "$LINE_FILTER" "$JQ_FILTER | length")"
+
+if [[ "$MATCH_COUNT" == "0" ]]; then
+  echo "No matching review comment found for login=$LOGIN path=$PATH_FILTER line=${LINE_FILTER:-<any>}." >&2
+  exit 1
+fi
+
+if [[ "$MATCH_COUNT" != "1" ]]; then
+  echo "Multiple matching review comments found for login=$LOGIN path=$PATH_FILTER line=${LINE_FILTER:-<any>}." >&2
+  echo "Narrow the match with --line or use an explicit comment id." >&2
+  printf '%s\n' "$COMMENTS_JSON" |
+    jq -r --arg login "$LOGIN" --arg path "$PATH_FILTER" --arg line "$LINE_FILTER" \
+      "$JQ_FILTER | map([.id, .path, (.line // .original_line // 0), .user.login]) | .[] | @tsv" >&2
+  exit 1
+fi
+
+printf '%s\n' "$COMMENTS_JSON" | jq -r --arg login "$LOGIN" --arg path "$PATH_FILTER" --arg line "$LINE_FILTER" "$JQ_FILTER | .[0].id"
