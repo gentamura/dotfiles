@@ -1,0 +1,85 @@
+#!/usr/bin/env zsh
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd -P)"
+FIND_COMMENT_ID="$SCRIPT_DIR/find-review-comment-id"
+THREAD_REPLY="$SCRIPT_DIR/pr-thread-reply"
+
+usage() {
+  cat <<'EOF'
+Usage:
+  skills/pr-address-bot-reviews/scripts/reply-to-review-comment <pr-number> --login <bot-login> --path <file> [--line <line>] <message>
+  skills/pr-address-bot-reviews/scripts/reply-to-review-comment <pr-number> --login <bot-login> --path <file> [--line <line>] --body-file <path>
+
+Examples:
+  skills/pr-address-bot-reviews/scripts/reply-to-review-comment 45 --login coderabbitai[bot] --path README.md --line 125 "Fixed in 1234abc."
+  skills/pr-address-bot-reviews/scripts/reply-to-review-comment 45 --login coderabbitai[bot] --path README.md --body-file /tmp/reply.md
+EOF
+}
+
+if [[ $# -lt 6 ]]; then
+  usage >&2
+  exit 1
+fi
+
+PR_NUMBER="$1"
+shift
+
+LOGIN=""
+TARGET_PATH=""
+LINE_FILTER=""
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --login)
+      if [[ $# -lt 2 || -z "${2:-}" || "${2:-}" == --* ]]; then
+        echo "Missing value for --login." >&2
+        usage >&2
+        exit 1
+      fi
+      LOGIN="$2"
+      shift 2
+      ;;
+    --path)
+      if [[ $# -lt 2 || -z "${2:-}" || "${2:-}" == --* ]]; then
+        echo "Missing value for --path." >&2
+        usage >&2
+        exit 1
+      fi
+      TARGET_PATH="$2"
+      shift 2
+      ;;
+    --line)
+      if [[ $# -lt 2 || -z "${2:-}" || "${2:-}" == --* ]]; then
+        echo "Missing value for --line." >&2
+        usage >&2
+        exit 1
+      fi
+      LINE_FILTER="$2"
+      shift 2
+      ;;
+    *)
+      break
+      ;;
+  esac
+done
+
+if [[ -z "$LOGIN" || -z "$TARGET_PATH" ]]; then
+  echo "Both --login and --path are required." >&2
+  usage >&2
+  exit 1
+fi
+
+if [[ $# -eq 0 ]]; then
+  echo "Reply body must be provided." >&2
+  usage >&2
+  exit 1
+fi
+
+FIND_ARGS=("$PR_NUMBER" --login "$LOGIN" --path "$TARGET_PATH")
+if [[ -n "$LINE_FILTER" ]]; then
+  FIND_ARGS+=(--line "$LINE_FILTER")
+fi
+
+COMMENT_ID="$("$FIND_COMMENT_ID" "${FIND_ARGS[@]}")"
+"$THREAD_REPLY" "$PR_NUMBER" "$COMMENT_ID" "$@"

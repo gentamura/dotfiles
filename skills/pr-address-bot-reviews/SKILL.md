@@ -56,7 +56,8 @@ Classify each item into:
 - For skipped items: reply with concise rationale.
 - For tradeoffs: ask explicit decision questions.
 - Reply in the correct channel:
-  - Inline review thread: use `.bin/pr-thread-reply <pr> <comment_id> "<response>"`
+  - Inline review thread: prefer `skills/pr-address-bot-reviews/scripts/reply-to-review-comment <pr> --login <bot-login> --path <file> [--line <line>] "<response>"`
+  - Lower-level flow remains available: `find-review-comment-id` then `pr-thread-reply`
   - General PR note: use `gh pr comment`
 
 ### 6. Report Back to User
@@ -79,9 +80,11 @@ Classify each item into:
 ```bash
 gh pr view <number> --json number,title,body,reviews,comments,files
 gh pr view <number> --comments
-gh api repos/<owner>/<repo>/pulls/<number>/comments --jq '.[] | [.id,.user.login,.path,.line] | @tsv'
-# reply to inline review comment thread
-.bin/pr-thread-reply <number> <comment_id> "<response>"
+# preferred single-command inline review reply flow
+skills/pr-address-bot-reviews/scripts/reply-to-review-comment <number> --login <bot-login> --path <file> [--line <line>] "<response>"
+# lower-level two-step flow when you want explicit control
+skills/pr-address-bot-reviews/scripts/find-review-comment-id <number> --login <bot-login> --path <file> [--line <line>]
+skills/pr-address-bot-reviews/scripts/pr-thread-reply <number> <comment_id> "<response>"
 # optional general PR note
 gh pr comment <number> --body "<response>"
 # implement code changes
@@ -89,3 +92,11 @@ git add <files...>
 git commit -m "<message>"
 git push
 ```
+
+## Script Split
+
+- `scripts/reply-to-review-comment`: thin entrypoint that resolves the target review comment id and posts the reply
+- `scripts/find-review-comment-id`: resolve a single inline review comment id from `bot login + path + optional line`
+- `scripts/pr-thread-reply`: post a reply to a known inline review comment id
+
+This keeps comment discovery and reply posting separate internally while still exposing a one-command path for routine use.
