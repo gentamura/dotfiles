@@ -26,7 +26,7 @@ PR_NUMBER="$1"
 shift
 
 LOGIN=""
-PATH_FILTER=""
+TARGET_PATH=""
 LINE_FILTER=""
 
 while [[ $# -gt 0 ]]; do
@@ -46,7 +46,7 @@ while [[ $# -gt 0 ]]; do
         usage >&2
         exit 1
       fi
-      PATH_FILTER="$2"
+      TARGET_PATH="$2"
       shift 2
       ;;
     --line)
@@ -64,7 +64,7 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-if [[ -z "$LOGIN" || -z "$PATH_FILTER" ]]; then
+if [[ -z "$LOGIN" || -z "$TARGET_PATH" ]]; then
   echo "Both --login and --path are required." >&2
   usage >&2
   exit 1
@@ -76,7 +76,7 @@ if [[ $# -eq 0 ]]; then
   exit 1
 fi
 
-FIND_ARGS=("$PR_NUMBER" --login "$LOGIN" --path "$PATH_FILTER")
+FIND_ARGS=("$PR_NUMBER" --login "$LOGIN" --path "$TARGET_PATH")
 if [[ -n "$LINE_FILTER" ]]; then
   FIND_ARGS+=(--line "$LINE_FILTER")
 fi

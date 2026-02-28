@@ -21,7 +21,7 @@ PR_NUMBER="$1"
 shift
 
 LOGIN=""
-PATH_FILTER=""
+TARGET_PATH=""
 LINE_FILTER=""
 
 while [[ $# -gt 0 ]]; do
@@ -41,7 +41,7 @@ while [[ $# -gt 0 ]]; do
         usage >&2
         exit 1
       fi
-      PATH_FILTER="${2:-}"
+      TARGET_PATH="${2:-}"
       shift 2
       ;;
     --line)
@@ -61,7 +61,7 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-if [[ -z "$LOGIN" || -z "$PATH_FILTER" ]]; then
+if [[ -z "$LOGIN" || -z "$TARGET_PATH" ]]; then
   echo "Both --login and --path are required." >&2
   usage >&2
   exit 1
@@ -73,7 +73,7 @@ if [[ -z "$REPO" ]]; then
   exit 1
 fi
 
-COMMENTS_JSON="$(gh api --paginate "repos/${REPO}/pulls/${PR_NUMBER}/comments" | jq -s 'add')"
+COMMENTS_JSON="$(gh api --paginate "repos/${REPO}/pulls/${PR_NUMBER}/comments" | jq -s 'add // []')"
 
 JQ_FILTER='
   map(
@@ -88,20 +88,20 @@ JQ_FILTER='
   end
 '
 
-MATCH_COUNT="$(printf '%s\n' "$COMMENTS_JSON" | jq -r --arg login "$LOGIN" --arg path "$PATH_FILTER" --arg line "$LINE_FILTER" "$JQ_FILTER | length")"
+MATCH_COUNT="$(printf '%s\n' "$COMMENTS_JSON" | jq -r --arg login "$LOGIN" --arg path "$TARGET_PATH" --arg line "$LINE_FILTER" "$JQ_FILTER | length")"
 
 if [[ "$MATCH_COUNT" == "0" ]]; then
-  echo "No matching review comment found for login=$LOGIN path=$PATH_FILTER line=${LINE_FILTER:-<any>}." >&2
+  echo "No matching review comment found for login=$LOGIN path=$TARGET_PATH line=${LINE_FILTER:-<any>}." >&2
   exit 1
 fi
 
 if [[ "$MATCH_COUNT" != "1" ]]; then
-  echo "Multiple matching review comments found for login=$LOGIN path=$PATH_FILTER line=${LINE_FILTER:-<any>}." >&2
+  echo "Multiple matching review comments found for login=$LOGIN path=$TARGET_PATH line=${LINE_FILTER:-<any>}." >&2
   echo "Narrow the match with --line or use an explicit comment id." >&2
   printf '%s\n' "$COMMENTS_JSON" |
-    jq -r --arg login "$LOGIN" --arg path "$PATH_FILTER" --arg line "$LINE_FILTER" \
+    jq -r --arg login "$LOGIN" --arg path "$TARGET_PATH" --arg line "$LINE_FILTER" \
       "$JQ_FILTER | map([.id, .path, (.line // .original_line // 0), .user.login]) | .[] | @tsv" >&2
   exit 1
 fi
 
-printf '%s\n' "$COMMENTS_JSON" | jq -r --arg login "$LOGIN" --arg path "$PATH_FILTER" --arg line "$LINE_FILTER" "$JQ_FILTER | .[0].id"
+printf '%s\n' "$COMMENTS_JSON" | jq -r --arg login "$LOGIN" --arg path "$TARGET_PATH" --arg line "$LINE_FILTER" "$JQ_FILTER | .[0].id"
