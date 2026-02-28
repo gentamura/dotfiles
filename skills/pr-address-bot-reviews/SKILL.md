@@ -56,7 +56,7 @@ Classify each item into:
 - For skipped items: reply with concise rationale.
 - For tradeoffs: ask explicit decision questions.
 - Reply in the correct channel:
-  - Inline review thread: use `.bin/pr-thread-reply <pr> <comment_id> "<response>"`
+  - Inline review thread: use `skills/pr-address-bot-reviews/scripts/pr-thread-reply <pr> <comment_id> "<response>"`
   - General PR note: use `gh pr comment`
 
 ### 6. Report Back to User
@@ -81,7 +81,7 @@ gh pr view <number> --json number,title,body,reviews,comments,files
 gh pr view <number> --comments
 gh api repos/<owner>/<repo>/pulls/<number>/comments --jq '.[] | [.id,.user.login,.path,.line] | @tsv'
 # reply to inline review comment thread
-.bin/pr-thread-reply <number> <comment_id> "<response>"
+skills/pr-address-bot-reviews/scripts/pr-thread-reply <number> <comment_id> "<response>"
 # optional general PR note
 gh pr comment <number> --body "<response>"
 # implement code changes

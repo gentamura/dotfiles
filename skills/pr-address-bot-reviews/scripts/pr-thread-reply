@@ -4,12 +4,12 @@ set -euo pipefail
 usage() {
   cat <<'EOF'
 Usage:
-  .bin/pr-thread-reply <pr-number> <comment-id> <message>
-  .bin/pr-thread-reply <pr-number> <comment-id> --body-file <path>
+  skills/pr-address-bot-reviews/scripts/pr-thread-reply <pr-number> <comment-id> <message>
+  skills/pr-address-bot-reviews/scripts/pr-thread-reply <pr-number> <comment-id> --body-file <path>
 
 Examples:
-  .bin/pr-thread-reply 43 2862929964 "Fixed in cadd44b."
-  .bin/pr-thread-reply 43 2862929964 --body-file /tmp/reply.md
+  skills/pr-address-bot-reviews/scripts/pr-thread-reply 43 2862929964 "Fixed in cadd44b."
+  skills/pr-address-bot-reviews/scripts/pr-thread-reply 43 2862929964 --body-file /tmp/reply.md
 EOF
 }
 
