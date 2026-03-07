@@ -5,5 +5,5 @@ customCommands:
   - key: "O"
     context: "files"
     description: "Open selected file in tmux window 1 Neovim/shell, switch window, close popup"
-    command: 'sh -c ''cmd=$(tmux display-message -p -t :1 "#{pane_current_command}"); if [ "$cmd" = "nvim" ] || [ "$cmd" = "vim" ]; then tmux send-keys -t :1 Escape ":e {{.SelectedFile.Name}}" Enter; else tmux send-keys -t :1 "nvim {{.SelectedFile.Name}}" Enter; fi; tmux select-window -t :1; tmux display-popup -C'''
+    command: 'sh -c ''if ! tmux list-windows -F "#{window_index}" | grep -qx "1"; then tmux new-window -d -t :1; fi; cmd=$(tmux display-message -p -t :1 "#{pane_current_command}"); if [ "$cmd" = "nvim" ] || [ "$cmd" = "vim" ]; then tmux send-keys -t :1 C-\\ C-n Escape Escape ":e {{.SelectedFile.Name}}" Enter; else tmux send-keys -t :1 "nvim {{.SelectedFile.Name}}" Enter; fi; tmux select-window -t :1; tmux display-popup -C'''
     output: none
