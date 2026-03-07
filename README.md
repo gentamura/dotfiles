@@ -128,6 +128,19 @@ See [.claude/CLAUDE.md](.claude/CLAUDE.md), [AGENTS.md](AGENTS.md) and [.claude/
 
 See `Brewfile` for the complete list of installed tools and applications.
 
+### Tmux + Lazygit Workflow
+
+`~/.config/lazygit/config.yml` defines a custom key in the `files` panel:
+
+- `O` (Shift+o): open the selected file in `tmux` window `:1`
+  - If window `:1` is running `nvim`/`vim`, send `:e <selected-file>`
+  - Otherwise, run `nvim <selected-file>` in window `:1`
+  - Then switch focus to window `:1` and close the tmux popup
+
+Notes:
+- `o` (lowercase) remains lazygit's default open action.
+- This workflow assumes your main editor pane is in tmux window `:1`.
+
 ## Requirements
 
 - macOS
