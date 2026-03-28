@@ -20,6 +20,14 @@ function tms() {
   local -a parts
 
   name="${name// /_}"
+  name="${name//:/_}"
+  if [[ "$name" == .* ]]; then
+    name="_${name#.}"
+  fi
+  if [[ -z "$name" ]]; then
+    name="_"
+  fi
+
   if ! tmux has-session -t "$name" 2>/dev/null; then
     tmux new -s "$name"
     return
@@ -34,6 +42,14 @@ function tms() {
     candidate="${(j:/:)parts[$start,$count]}"
     candidate="${candidate//\//__}"
     candidate="${candidate// /_}"
+    candidate="${candidate//:/_}"
+    if [[ "$candidate" == .* ]]; then
+      candidate="_${candidate#.}"
+    fi
+    if [[ -z "$candidate" ]]; then
+      candidate="_"
+    fi
+
     if ! tmux has-session -t "$candidate" 2>/dev/null; then
       tmux new -s "$candidate"
       return
@@ -42,6 +58,14 @@ function tms() {
 
   full_candidate="${(j:__:)parts}"
   full_candidate="${full_candidate// /_}"
+  full_candidate="${full_candidate//:/_}"
+  if [[ "$full_candidate" == .* ]]; then
+    full_candidate="_${full_candidate#.}"
+  fi
+  if [[ -z "$full_candidate" ]]; then
+    full_candidate="_"
+  fi
+
   candidate="${full_candidate}-${suffix}"
   while tmux has-session -t "$candidate" 2>/dev/null; do
     suffix=$((suffix + 1))
