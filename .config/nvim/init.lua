@@ -380,6 +380,21 @@ require("lazy").setup({
         builtin.find_files({ no_ignore = true })
       end, { desc = "Find all files (including gitignored)" })
       vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
+      vim.keymap.set("n", "<leader>fG", function()
+        local dir = vim.fn.input("Dir: ", "", "dir")
+        if dir ~= "" then
+          builtin.live_grep({ search_dirs = { dir } })
+        end
+      end, { desc = "Live grep in directory" })
+      vim.keymap.set("n", "<leader>fA", function()
+        local dir = vim.fn.input("Dir (all): ", "", "dir")
+        if dir ~= "" then
+          builtin.live_grep({
+            search_dirs = { dir },
+            additional_args = { "--hidden", "--no-ignore", "--glob=!.git/" },
+          })
+        end
+      end, { desc = "Live grep in directory (include hidden/ignored)" })
       vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
       vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
 
