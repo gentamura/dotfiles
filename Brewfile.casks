@@ -1,0 +1,15 @@
+tap "homebrew/cask-fonts" # Font casks
+tap "homebrew/cask-versions" # Alternate cask versions
+
+cask "bitwarden" # password manager
+cask "coteditor" # macOS text editor
+cask "docker-desktop" # Docker GUI and engine
+cask "font-hack-nerd-font" # Hack Nerd Font
+cask "font-hackgen" # HackGen font
+cask "font-ricty-diminished" # Ricty Diminished font
+cask "google-chrome" # web browser
+cask "iterm2" # terminal emulator
+cask "ngrok" # tunneling tool
+cask "slack" # team chat
+cask "visual-studio-code" # code editor
+cask "zoom" # video meetings

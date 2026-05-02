@@ -12,6 +12,12 @@ For a brand new Mac without Git installed, use the bootstrap script:
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/gentamura/dotfiles/main/bootstrap.sh)"
 ```
 
+To bootstrap without Homebrew casks:
+
+```bash
+DOTFILES_INSTALL_ARGS="init --no-cask" bash -c "$(curl -fsSL https://raw.githubusercontent.com/gentamura/dotfiles/main/bootstrap.sh)"
+```
+
 This script will:
 1. Check and install Command Line Tools (includes Git)
 2. Clone this repository to `~/dotfiles`
@@ -30,6 +36,12 @@ cd ~/dotfiles
 .bin/install.sh init
 ```
 
+For a managed/company Mac where Homebrew casks are restricted:
+
+```bash
+.bin/install.sh init --no-cask
+```
+
 ## Installation Components
 
 ### Full Installation
@@ -42,6 +54,14 @@ This runs all installation steps:
 1. Command Line Tools check/installation
 2. Homebrew installation and package setup
 3. Dotfiles symlinking
+
+By default this installs both command-line tools from `Brewfile` and GUI apps/fonts
+from `Brewfile.casks`. To install only command-line tools such as `neovim`, `rg`,
+`gh`, `tmux`, and `jq`, pass `--no-cask`:
+
+```bash
+.bin/install.sh init --no-cask
+```
 
 ### Individual Components
 
@@ -65,12 +85,27 @@ Checks if Command Line Tools are installed and installs them if needed.
 .bin/install_brew.sh
 ```
 
-Installs Homebrew (if needed) and all packages defined in `Brewfile`, including:
+Installs Homebrew (if needed), command-line packages defined in `Brewfile`, and
+GUI apps/fonts defined in `Brewfile.casks`, including:
 - Development tools (git, gh, neovim, tmux, etc.)
 - Programming languages (rust, openjdk, etc.)
 - Databases (postgresql, mysql, mongodb)
 - Applications (Docker Desktop, iTerm2, VS Code, etc.)
 - Security tools (git-secrets)
+
+To skip casks:
+
+```bash
+.bin/install.sh brew --no-cask
+# or directly
+.bin/install_brew.sh --no-cask
+```
+
+You can also set `DOTFILES_SKIP_BREW_CASKS=1` for non-interactive setup:
+
+```bash
+DOTFILES_SKIP_BREW_CASKS=1 .bin/install.sh init
+```
 
 #### Dotfiles Linking
 
@@ -126,7 +161,7 @@ See [.claude/CLAUDE.md](.claude/CLAUDE.md), [AGENTS.md](AGENTS.md) and [.claude/
 
 ### Development Tools
 
-See `Brewfile` for the complete list of installed tools and applications.
+See `Brewfile` for command-line tools and `Brewfile.casks` for GUI apps and fonts.
 
 ### Tmux + Lazygit Workflow
 
@@ -181,6 +216,7 @@ dotfiles/
 │   ├── install_brew.sh   # Homebrew and packages installation
 │   └── install_link.sh   # Dotfiles symlinking
 ├── Brewfile              # Homebrew packages definition
+├── Brewfile.casks        # Homebrew cask applications and fonts
 ├── AGENTS.md             # Shared agent entrypoint for local AI coding agents
 ├── skills/               # Shared skills (used by Codex and Claude)
 ├── .claude/              # Claude-specific configuration

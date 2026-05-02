@@ -10,6 +10,7 @@ NC='\033[0m' # No Color
 
 DOTFILES_REPO="https://github.com/gentamura/dotfiles.git"
 DOTFILES_DIR="$HOME/dotfiles"
+DOTFILES_INSTALL_ARGS="${DOTFILES_INSTALL_ARGS:-init}"
 
 echo -e "${CYAN}======================================${NC}"
 echo -e "${CYAN}  dotfiles Bootstrap Script${NC}"
@@ -94,7 +95,8 @@ run_installation() {
   cd "$DOTFILES_DIR"
 
   if [ -f ".bin/install.sh" ]; then
-    .bin/install.sh init
+    read -r -a install_args <<< "$DOTFILES_INSTALL_ARGS"
+    .bin/install.sh "${install_args[@]}"
   else
     echo -e "${RED}✗ Installation script not found${NC}"
     exit 1

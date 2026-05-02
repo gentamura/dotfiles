@@ -51,6 +51,7 @@
 
 !/bootstrap.sh
 !/Brewfile
+!/Brewfile.casks
 !/README.md
 !/AGENTS.md
 !/docs/
