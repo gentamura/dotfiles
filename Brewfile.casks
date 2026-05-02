@@ -1,6 +1,3 @@
-tap "homebrew/cask-fonts" # Font casks
-tap "homebrew/cask-versions" # Alternate cask versions
-
 cask "bitwarden" # password manager
 cask "coteditor" # macOS text editor
 cask "docker-desktop" # Docker GUI and engine

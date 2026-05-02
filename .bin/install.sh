@@ -4,12 +4,12 @@ set -ue
 SCRIPT_NAME="${0:t}"
 
 helpmsg() {
-  command echo "Usage: $SCRIPT_NAME [--help | -h | --debug | init [brew-options] | brew [brew-options] | link]" 0>&2
-  command echo "" 0>&2
-  command echo "Brew options:" 0>&2
-  command echo "  --no-cask     Skip GUI apps and fonts from Brewfile.casks" 0>&2
-  command echo "  --with-cask   Install GUI apps and fonts from Brewfile.casks (default)" 0>&2
-  command echo ""
+  command echo "Usage: $SCRIPT_NAME [--help | -h | --debug | init [brew-options] | brew [brew-options] | link]" 1>&2
+  command echo "" 1>&2
+  command echo "Brew options:" 1>&2
+  command echo "  --no-cask     Skip GUI apps and fonts from Brewfile.casks" 1>&2
+  command echo "  --with-cask   Install GUI apps and fonts from Brewfile.casks (default)" 1>&2
+  command echo "" 1>&2
 }
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd -P)"

@@ -4,11 +4,11 @@ set -ue
 SCRIPT_NAME="${0:t}"
 
 helpmsg() {
-  command echo "Usage: $SCRIPT_NAME [--no-cask | --with-cask | --help]" 0>&2
-  command echo "" 0>&2
-  command echo "Installs Homebrew formulae from Brewfile." 0>&2
-  command echo "By default, also installs GUI apps and fonts from Brewfile.casks." 0>&2
-  command echo "Set DOTFILES_SKIP_BREW_CASKS=1 or pass --no-cask to skip casks." 0>&2
+  command echo "Usage: $SCRIPT_NAME [--no-cask | --with-cask | --help]" 1>&2
+  command echo "" 1>&2
+  command echo "Installs Homebrew formulae from Brewfile." 1>&2
+  command echo "By default, also installs GUI apps and fonts from Brewfile.casks." 1>&2
+  command echo "Set DOTFILES_SKIP_BREW_CASKS=1 or pass --no-cask to skip casks." 1>&2
 }
 
 INSTALL_CASKS=true
