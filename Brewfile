@@ -1,7 +1,5 @@
 tap "bufbuild/buf" # Buf toolchain for Protocol Buffers
 tap "homebrew/bundle" # Brewfile support
-tap "homebrew/cask-fonts" # Font casks
-tap "homebrew/cask-versions" # Alternate cask versions
 tap "homebrew/services" # Homebrew services
 
 tap "reviewdog/tap" # reviewdog tools
@@ -51,16 +49,3 @@ brew "tmux" # terminal multiplexer
 brew "tree" # directory tree listing
 brew "reviewdog/tap/reviewdog" # review tool for CI
 brew "yukiarrr/tap/ecsk" # custom CLI tool (ecsk)
-
-cask "bitwarden" # password manager
-cask "coteditor" # macOS text editor
-cask "docker-desktop" # Docker GUI and engine
-cask "font-hack-nerd-font" # Hack Nerd Font
-cask "font-hackgen" # HackGen font
-cask "font-ricty-diminished" # Ricty Diminished font
-cask "google-chrome" # web browser
-cask "iterm2" # terminal emulator
-cask "ngrok" # tunneling tool
-cask "slack" # team chat
-cask "visual-studio-code" # code editor
-cask "zoom" # video meetings
