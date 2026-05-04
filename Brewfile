@@ -18,7 +18,7 @@ brew "lazygit" # TUI git client
 
 # Development toolchains
 brew "openjdk" # Java Development Kit
-brew "rust" # Rust toolchain
+brew "rustup" # Rust toolchain manager
 brew "tree-sitter" # parser generator
 
 # Media and documents

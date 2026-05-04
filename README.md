@@ -88,10 +88,19 @@ Checks if Command Line Tools are installed and installs them if needed.
 Installs Homebrew (if needed), command-line packages defined in `Brewfile`, and
 GUI apps/fonts defined in `Brewfile.casks`, including:
 - Development tools (git, gh, neovim, tmux, etc.)
-- Programming languages (rust, openjdk, etc.)
-- Databases (postgresql, mysql, mongodb)
+- Programming language tooling (rustup, openjdk, etc.)
 - Applications (Docker Desktop, iTerm2, VS Code, etc.)
 - Security tools (git-secrets)
+
+Rust is installed through `rustup`, not the fixed Homebrew `rust` formula. After
+installing Homebrew packages, initialize a default toolchain:
+
+```bash
+rustup default stable
+```
+
+Use `rustup toolchain install nightly` or `rustup target add <target>` when a
+project needs another channel or cross-compilation target.
 
 To skip casks:
 
