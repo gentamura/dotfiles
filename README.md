@@ -140,11 +140,33 @@ EOF
 ln -snf ~/dotfiles/.zshrc.local ~/.zshrc.local
 ```
 
+#### Git Configuration
+
+Shared Git settings live in `.gitconfig_shared` and are symlinked to
+`~/.gitconfig_shared`. Personal settings (name, email, signing keys, etc.)
+belong in your own `~/.gitconfig`, which `install_link.sh` does **not**
+overwrite.
+
+`install_link.sh` idempotently adds the include directive:
+
+```ini
+# ~/.gitconfig
+[include]
+  path = ~/.gitconfig_shared
+```
+
+Set your identity once (or rely on the warning printed by `install_link.sh`):
+
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+```
+
 ## What's Included
 
 ### Configuration Files
 
-- `.gitconfig` - Git configuration
+- `.gitconfig_shared` - Shared Git settings (included from `~/.gitconfig`)
 - `.config/mise/` - Mise tool configuration
 - `.config/nvim/.stylua.toml` - Lua formatting configuration (scoped to nvim)
 
@@ -234,7 +256,7 @@ dotfiles/
 │   ├── agents/           # Role-based agents
 │   ├── commands/         # Slash commands
 ├── .config/              # Application configurations
-├── .gitconfig            # Git configuration
+├── .gitconfig_shared     # Shared Git settings (included from ~/.gitconfig)
 └── README.md             # This file
 ```
 

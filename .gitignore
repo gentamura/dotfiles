@@ -46,7 +46,7 @@
 !/.claude/README.md
 !/skills/
 !/skills/**
-!/.gitconfig
+!/.gitconfig_shared
 !/.gitignore_global
 
 !/bootstrap.sh

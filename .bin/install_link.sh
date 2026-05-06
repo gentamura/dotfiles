@@ -200,6 +200,27 @@ if [[ "$HOME" != "$DOT_DIR" ]]; then
     command echo "Linked: $LAZYGIT_CONFIG_DEST -> $LAZYGIT_CONFIG_SRC"
   fi
 
+  # ~/.gitconfig: do not own the file, only ensure it includes ~/.gitconfig_shared.
+  # Migrate any legacy symlink (older installs symlinked ~/.gitconfig to dotfiles).
+  GITCONFIG_HOME="$HOME/.gitconfig"
+  if [ -L "$GITCONFIG_HOME" ]; then
+    command echo "Found legacy ~/.gitconfig symlink, backing up..."
+    command mv "$GITCONFIG_HOME" "$HOME/.dotbackup/.gitconfig_${TIMESTAMP}"
+  fi
+
+  if command git config --global --get-all include.path 2>/dev/null | command grep -Fxq "~/.gitconfig_shared"; then
+    command echo "~/.gitconfig already includes ~/.gitconfig_shared"
+  else
+    command git config --global --add include.path "~/.gitconfig_shared"
+    command echo "Added include.path = ~/.gitconfig_shared to ~/.gitconfig"
+  fi
+
+  if ! command git config --global user.name >/dev/null 2>&1 || ! command git config --global user.email >/dev/null 2>&1; then
+    command echo "Note: set your git identity if not already configured:"
+    command echo "  git config --global user.name 'Your Name'"
+    command echo "  git config --global user.email 'you@example.com'"
+  fi
+
   # Obsidian Vim config
   OBSIDIAN_VAULT_DIR="$HOME/Documents/Obsidian Vault"
   OBSIDIAN_VIMRC_SRC="$DOT_DIR/.config/obsidian/.obsidian.vimrc"
