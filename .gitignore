@@ -9,7 +9,6 @@
 !/.zprofile
 !/.zshenv
 !/.tmux.conf
-!/.stylua.toml
 !/.zshrc.d/
 !/.zshrc.d/**
 !/.bin/
@@ -21,6 +20,7 @@
 !/.config/nvim/
 !/.config/nvim/init.lua
 !/.config/nvim/.luarc.json
+!/.config/nvim/.stylua.toml
 !/.config/nvim/after/
 !/.config/nvim/after/plugin/
 !/.config/nvim/after/plugin/**
