@@ -145,9 +145,8 @@ ln -snf ~/dotfiles/.zshrc.local ~/.zshrc.local
 ### Configuration Files
 
 - `.gitconfig` - Git configuration
-- `.config/zed/` - Zed editor settings
 - `.config/mise/` - Mise tool configuration
-- `.stylua.toml` - Lua formatting configuration
+- `.config/nvim/.stylua.toml` - Lua formatting configuration (scoped to nvim)
 
 ### AI Agent Configuration
 
