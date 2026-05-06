@@ -595,24 +595,6 @@ require("lazy").setup({
       })
     end,
   },
-  {
-    "akinsho/flutter-tools.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "stevearc/dressing.nvim",
-    },
-    config = function()
-      require("flutter-tools").setup({})
-    end,
-  },
-  {
-    "dart-lang/dart-vim-plugin",
-    ft = { "dart" },
-    init = function()
-      vim.g.dart_style_guide = 2
-      vim.g.dart_format_on_save = 1
-    end,
-  },
 }, {
   defaults = {
     lazy = false,
