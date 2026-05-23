@@ -32,6 +32,13 @@ vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
 vim.opt.updatetime = 50
 
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "fugitiveblame",
+  callback = function ()
+    vim.wo.winbar = " "
+  end,
+})
+
 --[[ Keymap ]]
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
@@ -41,6 +48,12 @@ end, { desc = "Copy full path" })
 vim.keymap.set("n", "<leader>cr", function()
   vim.fn.setreg("+", vim.fn.expand("%"))
 end, { desc = "Copy relative path" })
+vim.keymap.set("v", "<leader>cy", function()
+  vim.cmd('normal! "xy')
+  local path = vim.fn.expand("%:.")
+  local text = path .. "\n" .. vim.fn.getreg("x")
+  vim.fn.setreg("+", text)
+end, { desc = "Yank with file path"})
 
 --[[ Netrw ]]
 vim.g.netrw_localmovecmd = "mv"
