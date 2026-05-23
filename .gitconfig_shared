@@ -1,13 +1,6 @@
-[user]
-  name = Gen Tamura
-  email = gen.tamura84@gmail.com
-
 [core]
   excludesfile = ~/.gitignore_global
   pager = delta
-
-[include]
-  path = ~/.gitconfig_shared
 
 [interactive]
   diffFilter = delta --color-only
