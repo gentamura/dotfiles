@@ -208,10 +208,15 @@ if [[ "$HOME" != "$DOT_DIR" ]]; then
     command mv "$GITCONFIG_HOME" "$HOME/.dotbackup/.gitconfig_${TIMESTAMP}"
   fi
 
-  if command git config --global --get-all include.path 2>/dev/null | command grep -Fxq "~/.gitconfig_shared"; then
+  # Treat tilde and absolute forms as equivalent: git expands ~ at read time,
+  # but stores the literal string, so both representations can coexist.
+  GITCONFIG_SHARED_TILDE="~/.gitconfig_shared"
+  GITCONFIG_SHARED_ABS="$HOME/.gitconfig_shared"
+  EXISTING_INCLUDES="$(command git config --global --get-all include.path 2>/dev/null || true)"
+  if command printf '%s\n' "$EXISTING_INCLUDES" | command grep -Fxq -e "$GITCONFIG_SHARED_TILDE" -e "$GITCONFIG_SHARED_ABS"; then
     command echo "~/.gitconfig already includes ~/.gitconfig_shared"
   else
-    command git config --global --add include.path "~/.gitconfig_shared"
+    command git config --global --add include.path "$GITCONFIG_SHARED_TILDE"
     command echo "Added include.path = ~/.gitconfig_shared to ~/.gitconfig"
   fi
 
